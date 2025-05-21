@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Genetic Emotional Fingerprint</title>
+    <style>
+        body {
+            background: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        canvas {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Genetic Emotional Fingerprint</h1>
+
+    <form method="POST">
+        <input type="text" name="emotion" placeholder="Enter an emotion" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <canvas id="gef" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gef");
+        const ctx = canvas.getContext("2d");
+
+        if (!canvas) alert("Canvas not found!");
+        if (!ctx) alert("Canvas context not found!");
+
+        const clusterColors = {
+            joy: "#FFD93D",
+            sadness: "#4ECDC4",
+            anger: "#FF6B6B",
+            calm: "#8EC07C",
+            fear: "#9E79B9",
+            surprise: "#F67280"
+        };
+
+        const emotionList = {{ emotions|tojson|safe }};
+        console.log("Loaded emotions:", emotionList);
+
+        const clusters = emotionList.map((emotion, index) => {
+            const baseX = 100 + (index * 60) % 400;
+            const baseY = 100 + Math.floor(index / 5) * 60;
+            return {
+                emotion: emotion,
+                x: baseX,
+                y: baseY,
+                radius: 25 + Math.random() * 5,
+                pulse: Math.random() * 2 + 0.5,
+                phase: Math.random() * Math.PI * 2,
+                driftX: (Math.random() - 0.5) * 0.5,
+                driftY: (Math.random() - 0.5) * 0.5
+            };
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.strokeStyle = "#666";
+            ctx.lineWidth = 1.2;
+
+            for (let i = 0; i < clusters.length - 1; i++) {
+                const a = clusters[i];
+                const b = clusters[i + 1];
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+            }
+            ctx.stroke();
+
+            clusters.forEach(c => {
+                const pulseSize = Math.sin(Date.now() / 300 + c.phase) * 3;
+                const radius = c.radius + pulseSize;
+
+                c.x += c.driftX;
+                c.y += c.driftY;
+
+                if (c.x < 30 || c.x > canvas.width - 30) c.driftX *= -1;
+                if (c.y < 30 || c.y > canvas.height - 30) c.driftY *= -1;
+
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, radius, 0, 2 * Math.PI);
+                ctx.fillStyle = clusterColors[c.emotion.toLowerCase()] || "#999999";
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        if (emotionList.length > 0) {
+            animate();
+        }
+    </script>
+</body>
+</html>
