@@ -1,0 +1,469 @@
+/* ====================================
+ * CAMERA ANALYSIS STYLES
+ * Styles for facial detection, emotion recognition, and gaze tracking
+ * ==================================== */
+
+.camera-analysis-container {
+    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #fd79a8 100%);
+    border-radius: 24px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: 0 10px 40px rgba(108, 92, 231, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.camera-analysis-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.camera-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.camera-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.camera-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    animation: camera-focus 3s ease-in-out infinite;
+}
+
+@keyframes camera-focus {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); }
+}
+
+.camera-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.camera-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.camera-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.camera-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.camera-btn.active {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+
+.video-preview-section {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.video-container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-preview {
+    width: 100%;
+    height: 300px;
+    background: #000;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.face-detection-box {
+    position: absolute;
+    border: 2px solid #4ade80;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.face-detection-box::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 8px;
+    animation: detection-pulse 2s infinite;
+}
+
+@keyframes detection-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.gaze-indicator {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fbbf24;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+    animation: gaze-blink 1.5s infinite;
+}
+
+@keyframes gaze-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.emotion-panel {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.emotion-panel-title {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.emotion-bars {
+    space-y: 12px;
+}
+
+.emotion-bar {
+    margin-bottom: 12px;
+}
+
+.emotion-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.emotion-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.emotion-percentage {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.emotion-progress {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.emotion-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+}
+
+.emotion-happy .emotion-progress-fill { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+.emotion-sad .emotion-progress-fill { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+.emotion-angry .emotion-progress-fill { background: linear-gradient(90deg, #f87171, #ef4444); }
+.emotion-surprised .emotion-progress-fill { background: linear-gradient(90deg, #34d399, #10b981); }
+.emotion-fear .emotion-progress-fill { background: linear-gradient(90deg, #a78bfa, #8b5cf6); }
+
+.facial-features-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feature-title {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gaze-tracking-viz {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.gaze-point {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fbbf24;
+    border-radius: 50%;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+    animation: gaze-pulse 2s infinite;
+}
+
+@keyframes gaze-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(251, 191, 36, 0); }
+}
+
+.face-landmarks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.landmark-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+}
+
+.landmark-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.landmark-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.analysis-stats {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.confidence-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.confidence-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: confidence-pulse 2s infinite;
+}
+
+@keyframes confidence-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.confidence-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+.face-detection-history {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.history-timeline {
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin-top: 16px;
+}
+
+.timeline-bar {
+    position: absolute;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to top, #4facfe, #00f2fe);
+    border-radius: 2px;
+    transition: height 0.3s ease;
+}
+
+.processing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.processing-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.processing-text {
+    color: white;
+    font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .video-preview-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .facial-features-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .camera-analysis-container {
+        padding: 16px;
+        margin: 12px 0;
+    }
+    
+    .video-preview {
+        height: 200px;
+    }
+    
+    .camera-controls {
+        flex-wrap: wrap;
+    }
+    
+    .gaze-tracking-viz {
+        width: 150px;
+        height: 90px;
+    }
+}

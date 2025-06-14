@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Navigation - AI Platform</title>
+    <style>
+        /* Enhanced Navigation System */
+        :root {
+            --primary: #667eea; --primary-light: #a78bfa; --secondary: #00ffd4; --accent: #a855f7;
+            --success: #00ff88; --warning: #ffaa00; --error: #ff4757; --info: #00d4ff;
+            --text-primary: #ffffff; --text-secondary: rgba(255, 255, 255, 0.9); --text-muted: rgba(255, 255, 255, 0.7);
+            --bg: linear-gradient(135deg, #000000 0%, #0a0a14 25%, #12122b 50%, #1a1a2e 75%, #0f0f23 100%);
+            --surface: rgba(15, 18, 45, 0.9); --glass-border: rgba(255, 255, 255, 0.15);
+            --holographic: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            --border-radius: 14px; --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+            --mobile-safe-bottom: env(safe-area-inset-bottom);
+            --touch-target-size: 44px;
+        }
+
+        body {
+            margin: 0; padding: 0; background: var(--bg); color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overscroll-behavior: none; /* Prevent pull-to-refresh */
+        }
+
+        /* Enhanced Bottom Navigation */
+        .enhanced-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+            background: var(--holographic); backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border); border-radius: 20px 20px 0 0;
+            padding: 1rem 1rem calc(1rem + var(--mobile-safe-bottom)) 1rem;
+            touch-action: manipulation; /* Optimize for touch */
+        }
+
+        .nav-list {
+            display: flex; justify-content: space-around; align-items: center;
+            list-style: none; margin: 0; padding: 0; height: 52px;
+        }
+
+        .nav-item {
+            display: flex; flex: 1; max-width: 80px;
+        }
+
+        .nav-link {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; min-height: var(--touch-target-size); padding: 0.5rem; 
+            border-radius: var(--border-radius); text-decoration: none; color: var(--text-secondary);
+            transition: var(--transition); cursor: pointer; position: relative; overflow: hidden;
+            touch-action: manipulation; /* Improve touch responsiveness */
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05); transform: translateY(-1px);
+            color: var(--text-primary);
+        }
+
+        .nav-link:focus-visible {
+            outline: 3px solid var(--primary); outline-offset: 2px;
+            background: rgba(102, 126, 234, 0.1); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-link[aria-current="page"] {
+            background: rgba(102, 126, 234, 0.2); color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .nav-icon {
+            font-size: 1.3rem; margin-bottom: 2px; transition: var(--transition);
+        }
+
+        .nav-label {
+            font-size: 0.65rem; font-weight: 700; line-height: 1; text-align: center;
+        }
+
+        /* Enhanced Sub Navigation */
+        .sub-nav {
+            display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto;
+            padding: 0.5rem 0; scrollbar-width: none; -ms-overflow-style: none;
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
+        .sub-nav::-webkit-scrollbar { display: none; }
+
+        .sub-nav-list {
+            display: flex; gap: 0.5rem; list-style: none; margin: 0; padding: 0;
+            min-width: max-content;
+        }
+
+        .sub-nav-item {
+            flex-shrink: 0;
+        }
+
+        .sub-nav-link {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 0.5rem 1rem; white-space: nowrap;
+            color: var(--text-secondary); text-decoration: none;
+            font-size: 0.8rem; font-weight: 600; transition: var(--transition);
+            display: block; min-height: var(--touch-target-size); 
+            display: flex; align-items: center; /* Better touch targets */
+            touch-action: manipulation;
+        }
+
+        .sub-nav-link:hover {
+            background: rgba(255, 255, 255, 0.1); transform: translateY(-1px);
+            color: var(--text-primary);
+        }
+
+        .sub-nav-link:focus-visible {
+            outline: 3px solid var(--primary); outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .sub-nav-link[aria-current="page"] {
+            background: var(--primary); color: white; border-color: var(--primary);
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+            font-size: 0.8rem; color: var(--text-muted);
+        }
+
+        .breadcrumb-list {
+            display: flex; align-items: center; gap: 0.5rem;
+            list-style: none; margin: 0; padding: 0;
+        }
+
+        .breadcrumb-link {
+            color: var(--text-muted); text-decoration: none;
+            padding: 0.25rem 0.5rem; border-radius: 6px;
+            transition: var(--transition); min-height: 32px; display: flex; align-items: center;
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--primary); background: rgba(102, 126, 234, 0.1);
+        }
+
+        .breadcrumb-link:focus-visible {
+            outline: 2px solid var(--primary); outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary); font-weight: 600;
+            padding: 0.25rem 0.5rem; min-height: 32px; display: flex; align-items: center;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-muted); user-select: none;
+        }
+
+        /* Navigation Badge */
+        .nav-badge {
+            position: absolute; top: 0.25rem; right: 0.25rem;
+            background: var(--error); color: white; font-size: 0.6rem;
+            padding: 0.125rem 0.25rem; border-radius: 10px;
+            min-width: 1rem; text-align: center; line-height: 1;
+        }
+
+        /* Skip Navigation */
+        .skip-nav {
+            position: absolute; top: -40px; left: 6px; z-index: 1000;
+            background: var(--primary); color: white; padding: 8px;
+            text-decoration: none; border-radius: 4px;
+            transition: top 0.3s; font-weight: 600;
+        }
+
+        .skip-nav:focus {
+            top: 6px; outline: 3px solid white; outline-offset: 2px;
+        }
+
+        /* Focus Trap for Overlays */
+        .focus-trap {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .focus-trap-content {
+            background: var(--surface); border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius); padding: 2rem; max-width: 90vw;
+            max-height: 90vh; overflow-y: auto;
+        }
+
+        /* Responsive Enhancements */
+        @media (max-width: 768px) {
+            .sub-nav-link {
+                font-size: 0.75rem; padding: 0.4rem 0.8rem;
+                min-height: var(--touch-target-size);
+            }
+            
+            .nav-label {
+                font-size: 0.6rem;
+            }
+            
+            .breadcrumb {
+                font-size: 0.7rem;
+            }
+            
+            /* Hide middle breadcrumb items on mobile */
+            .breadcrumb-item:not(:last-child):not(:first-child) {
+                display: none;
+            }
+            
+            /* Better sub-nav scrolling indicators */
+            .sub-nav::before, .sub-nav::after {
+                content: ''; position: absolute; top: 0; bottom: 0; width: 20px;
+                background: linear-gradient(90deg, var(--surface), transparent);
+                pointer-events: none; z-index: 1;
+            }
+            
+            .sub-nav::before { left: 0; }
+            .sub-nav::after { right: 0; background: linear-gradient(-90deg, var(--surface), transparent); }
+        }
+
+        /* Accessibility Enhancements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            .nav-link, .sub-nav-link, .breadcrumb-link {
+                border: 2px solid var(--glass-border);
+            }
+            
+            .nav-link:focus-visible, .sub-nav-link:focus-visible {
+                outline: 3px solid #ffff00; /* High contrast focus */
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.6; pointer-events: none;
+        }
+
+        .loading::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 20px; height: 20px; margin: -10px 0 0 -10px;
+            border: 2px solid var(--primary); border-top: 2px solid transparent;
+            border-radius: 50%; animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Screen Reader Only */
+        .sr-only {
+            position: absolute; left: -10000px; width: 1px; height: 1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0);
+        }
+
+        /* Demo Styles */
+        .demo-content {
+            padding: 2rem 1rem 120px 1rem; max-width: 430px; margin: 0 auto;
+        }
+
+        .section {
+            display: none; animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .demo-card {
+            background: var(--surface); border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius); padding: 1.5rem; margin-bottom: 1rem;
+        }
+
+        /* Swipe Gesture Indicator */
+        .swipe-indicator {
+            position: fixed; bottom: 50%; right: 10px; z-index: 99;
+            background: rgba(255, 255, 255, 0.1); padding: 0.5rem;
+            border-radius: 50%; opacity: 0; transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .swipe-indicator.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+    <!-- Live Region for Announcements -->
+    <div id="announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+    <!-- Swipe Gesture Indicator -->
+    <div class="swipe-indicator" id="swipeIndicator" aria-hidden="true">
+        <span>⟵</span>
+    </div>
+
+    <div class="demo-content">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="Breadcrumb" class="breadcrumb">
+            <ol class="breadcrumb-list" id="breadcrumbList">
+                <li><a href="#" class="breadcrumb-link">Home</a></li>
+                <li><span class="breadcrumb-separator" aria-hidden="true">›</span></li>
+                <li><span class="breadcrumb-current" aria-current="page">AI Coach</span></li>
+            </ol>
+        </nav>
+
+        <main id="main-content">
+            <!-- AI Coach Section -->
+            <section class="section active" id="aiCoach" aria-labelledby="ai-coach-heading">
+                <h1 id="ai-coach-heading">AI Coach</h1>
+                
+                <div class="demo-card">
+                    <h2>Quantum-Enhanced AI Life Coach</h2>
+                    <p>Your personalized AI coach with advanced analytics and biometric integration.</p>
+                </div>
+            </section>
+
+            <!-- Emotional Fusion Section -->
+            <section class="section" id="emotionalFusion" aria-labelledby="emotional-fusion-heading">
+                <h1 id="emotional-fusion-heading">Emotional Fusion</h1>
+                
+                <div class="demo-card">
+                    <h2>Mind-Heart Connection</h2>
+                    <p>Advanced emotional intelligence with real-time biometric feedback.</p>
+                </div>
+            </section>
+
+            <!-- Health Section -->
+            <section class="section" id="health" aria-labelledby="health-heading">
+                <h1 id="health-heading">Health Dashboard</h1>
+                
+                <!-- Health Sub Navigation -->
+                <nav aria-label="Health sections" class="sub-nav">
+                    <ul class="sub-nav-list" role="tablist" id="healthTabs">
+                        <li class="sub-nav-item" role="none">
+                            <a href="#health-overview" class="sub-nav-link" role="tab" 
+                               aria-current="page" aria-controls="health-overview-panel" id="tab-overview"
+                               onclick="switchHealthTab('overview', event)">Overview</a>
+                        </li>
+                        <li class="sub-nav-item" role="none">
+                            <a href="#health-biometrics" class="sub-nav-link" role="tab"
+                               aria-controls="health-biometrics-panel" id="tab-biometrics"
+                               onclick="switchHealthTab('biometrics', event)">Biometrics</a>
+                        </li>
+                        <li class="sub-nav-item" role="none">
+                            <a href="#health-sensors" class="sub-nav-link" role="tab"
+                               aria-controls="health-sensors-panel" id="tab-sensors"
+                               onclick="switchHealthTab('sensors', event)">Sensors</a>
+                        </li>
+                        <li class="sub-nav-item" role="none">
+                            <a href="#health-sleep" class="sub-nav-link" role="tab"
+                               aria-controls="health-sleep-panel" id="tab-sleep"
+                               onclick="switchHealthTab('sleep', event)">Sleep</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="demo-card" id="health-overview-panel" role="tabpanel" aria-labelledby="tab-overview">
+                    <h2>Health Overview</h2>
+                    <p>Comprehensive health monitoring with real-time biometric analysis.</p>
+                </div>
+            </section>
+
+            <!-- Performance Section -->
+            <section class="section" id="performance" aria-labelledby="performance-heading">
+                <h1 id="performance-heading">Performance</h1>
+                <div class="demo-card">
+                    <h2>Performance Analytics</h2>
+                    <p>Track and optimize your productivity and energy levels.</p>
+                </div>
+            </section>
+
+            <!-- Growth Section -->
+            <section class="section" id="growth" aria-labelledby="growth-heading">
+                <h1 id="growth-heading">Growth</h1>
+                <div class="demo-card">
+                    <h2>Personal Growth</h2>
+                    <p>Learning, habits, and emotional intelligence development.</p>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section class="section" id="profile" aria-labelledby="profile-heading">
+                <h1 id="profile-heading">Profile</h1>
+                <div class="demo-card">
+                    <h2>Your Profile</h2>
+                    <p>Personal settings, preferences, and account management.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Enhanced Bottom Navigation -->
+    <nav aria-label="Main navigation" class="enhanced-nav" id="mainNavigation">
+        <ul class="nav-list" role="menubar">
+            <li class="nav-item" role="none">
+                <a href="#aiCoach" class="nav-link" role="menuitem" 
+                   aria-current="page" onclick="switchSection('aiCoach', this)" id="nav-aiCoach">
+                    <span class="nav-icon" aria-hidden="true">🤖</span>
+                    <span class="nav-label">AI Coach</span>
+                    <span class="nav-badge" aria-label="3 new insights">3</span>
+                </a>
+            </li>
+            <li class="nav-item" role="none">
+                <a href="#emotionalFusion" class="nav-link" role="menuitem"
+                   onclick="switchSection('emotionalFusion', this)" id="nav-emotionalFusion">
+                    <span class="nav-icon" aria-hidden="true">🧠💓</span>
+                    <span class="nav-label">Fusion</span>
+                </a>
+            </li>
+            <li class="nav-item" role="none">
+                <a href="#health" class="nav-link" role="menuitem"
+                   onclick="switchSection('health', this)" id="nav-health">
+                    <span class="nav-icon" aria-hidden="true">💗</span>
+                    <span class="nav-label">Health</span>
+                </a>
+            </li>
+            <li class="nav-item" role="none">
+                <a href="#performance" class="nav-link" role="menuitem"
+                   onclick="switchSection('performance', this)" id="nav-performance">
+                    <span class="nav-icon" aria-hidden="true">⚡</span>
+                    <span class="nav-label">Performance</span>
+                </a>
+            </li>
+            <li class="nav-item" role="none">
+                <a href="#growth" class="nav-link" role="menuitem"
+                   onclick="switchSection('growth', this)" id="nav-growth">
+                    <span class="nav-icon" aria-hidden="true">📚</span>
+                    <span class="nav-label">Growth</span>
+                </a>
+            </li>
+            <li class="nav-item" role="none">
+                <a href="#profile" class="nav-link" role="menuitem"
+                   onclick="switchSection('profile', this)" id="nav-profile">
+                    <span class="nav-icon" aria-hidden="true">👤</span>
+                    <span class="nav-label">Profile</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <script>
+        // Enhanced Navigation with Touch Gestures and Focus Management
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let currentSectionIndex = 0;
+        let focusTrapElements = [];
+        
+        const sections = ['aiCoach', 'emotionalFusion', 'health', 'performance', 'growth', 'profile'];
+        
+        // Enhanced section switching with loading states
+        function switchSection(sectionId, navElement) {
+            // Add loading state
+            if (navElement) {
+                navElement.classList.add('loading');
+            }
+            
+            // Simulate async navigation (remove in real app)
+            setTimeout(() => {
+                // Update sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                    section.setAttribute('aria-hidden', 'true');
+                });
+                
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    targetSection.setAttribute('aria-hidden', 'false');
+                    
+                    // Focus management - focus the heading
+                    const heading = targetSection.querySelector('h1');
+                    if (heading) {
+                        heading.setAttribute('tabindex', '-1');
+                        heading.focus();
+                        setTimeout(() => heading.removeAttribute('tabindex'), 100);
+                    }
+                }
+                
+                // Update navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.removeAttribute('aria-current');
+                });
+                
+                if (navElement) {
+                    navElement.setAttribute('aria-current', 'page');
+                    navElement.classList.remove('loading');
+                }
+                
+                // Update current section index
+                currentSectionIndex = sections.indexOf(sectionId);
+                
+                // Update breadcrumbs
+                updateBreadcrumbs(sectionId);
+                
+                // Announce to screen readers
+                announceNavigation(sectionId);
+                
+            }, 150); // Brief loading animation
+        }
+        
+        // Enhanced health tab switching with focus management
+        function switchHealthTab(tabId, event) {
+            if (event) {
+                event.preventDefault();
+                
+                // Update tab navigation
+                document.querySelectorAll('.sub-nav-link').forEach(link => {
+                    link.removeAttribute('aria-current');
+                    link.setAttribute('aria-selected', 'false');
+                });
+                
+                event.target.setAttribute('aria-current', 'page');
+                event.target.setAttribute('aria-selected', 'true');
+                
+                // Focus management for tabs
+                event.target.focus();
+            }
+            
+            // Update breadcrumbs to show health sub-section
+            updateBreadcrumbs('health', tabId);
+            
+            // Announce tab change
+            announceNavigation('health', tabId);
+        }
+        
+        // Enhanced breadcrumb updates
+        function updateBreadcrumbs(section, subsection) {
+            const breadcrumbList = document.getElementById('breadcrumbList');
+            const sectionNames = {
+                'aiCoach': 'AI Coach',
+                'emotionalFusion': 'Emotional Fusion',
+                'health': 'Health',
+                'performance': 'Performance',
+                'growth': 'Growth',
+                'profile': 'Profile'
+            };
+            
+            const subsectionNames = {
+                'overview': 'Overview',
+                'biometrics': 'Biometrics',
+                'sensors': 'Sensors',
+                'sleep': 'Sleep'
+            };
+            
+            let breadcrumbHTML = `
+                <li><a href="#" class="breadcrumb-link" onclick="switchSection('aiCoach', document.getElementById('nav-aiCoach'))">Home</a></li>
+                <li><span class="breadcrumb-separator" aria-hidden="true">›</span></li>
+            `;
+            
+            if (subsection) {
+                breadcrumbHTML += `
+                    <li><a href="#${section}" class="breadcrumb-link" onclick="switchSection('${section}', document.getElementById('nav-${section}'))">${sectionNames[section]}</a></li>
+                    <li><span class="breadcrumb-separator" aria-hidden="true">›</span></li>
+                    <li><span class="breadcrumb-current" aria-current="page">${subsectionNames[subsection]}</span></li>
+                `;
+            } else {
+                breadcrumbHTML += `
+                    <li><span class="breadcrumb-current" aria-current="page">${sectionNames[section]}</span></li>
+                `;
+            }
+            
+            breadcrumbList.innerHTML = breadcrumbHTML;
+        }
+        
+        // Enhanced announcements with more detail
+        function announceNavigation(sectionId, subsection) {
+            const announcements = document.getElementById('announcements');
+            
+            const sectionNames = {
+                'aiCoach': 'AI Coach',
+                'emotionalFusion': 'Emotional Fusion',
+                'health': 'Health',
+                'performance': 'Performance',
+                'growth': 'Growth',
+                'profile': 'Profile'
+            };
+            
+            const subsectionNames = {
+                'overview': 'Overview',
+                'biometrics': 'Biometrics',
+                'sensors': 'Sensors',
+                'sleep': 'Sleep'
+            };
+            
+            let message = '';
+            if (subsection) {
+                message = `Navigated to ${subsectionNames[subsection]} in ${sectionNames[sectionId]} section`;
+            } else {
+                message = `Navigated to ${sectionNames[sectionId]} section`;
+            }
+            
+            announcements.textContent = message;
+        }
+        
+        // Enhanced keyboard navigation with better focus management
+        document.addEventListener('keydown', function(event) {
+            const activeElement = document.activeElement;
+            
+            // Handle main navigation
+            if (activeElement.classList.contains('nav-link')) {
+                if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+                    const currentIndex = navLinks.indexOf(activeElement);
+                    
+                    let nextIndex;
+                    if (event.key === 'ArrowLeft') {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : navLinks.length - 1;
+                    } else {
+                        nextIndex = currentIndex < navLinks.length - 1 ? currentIndex + 1 : 0;
+                    }
+                    
+                    const nextLink = navLinks[nextIndex];
+                    nextLink.focus();
+                    event.preventDefault();
+                }
+                
+                if (event.key === 'Enter' || event.key === ' ') {
+                    activeElement.click();
+                    event.preventDefault();
+                }
+            }
+            
+            // Handle sub-navigation tabs
+            if (activeElement.classList.contains('sub-nav-link')) {
+                if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                    const tabLinks = Array.from(document.querySelectorAll('.sub-nav-link'));
+                    const currentIndex = tabLinks.indexOf(activeElement);
+                    
+                    let nextIndex;
+                    if (event.key === 'ArrowLeft') {
+                        nextIndex = currentIndex > 0 ? currentIndex - 1 : tabLinks.length - 1;
+                    } else {
+                        nextIndex = currentIndex < tabLinks.length - 1 ? currentIndex + 1 : 0;
+                    }
+                    
+                    const nextTab = tabLinks[nextIndex];
+                    nextTab.focus();
+                    nextTab.click();
+                    event.preventDefault();
+                }
+            }
+            
+            // Escape key handling
+            if (event.key === 'Escape') {
+                // Close any open overlays or return focus to main navigation
+                const mainNav = document.querySelector('.nav-link[aria-current="page"]');
+                if (mainNav) {
+                    mainNav.focus();
+                }
+            }
+        });
+        
+        // Touch gesture support
+        document.addEventListener('touchstart', function(event) {
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        }, { passive: true });
+        
+        document.addEventListener('touchend', function(event) {
+            if (!touchStartX || !touchStartY) return;
+            
+            const touchEndX = event.changedTouches[0].clientX;
+            const touchEndY = event.changedTouches[0].clientY;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            // Minimum swipe distance
+            const minSwipeDistance = 100;
+            
+            // Ignore vertical swipes
+            if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+            
+            // Show swipe indicator briefly
+            const indicator = document.getElementById('swipeIndicator');
+            
+            if (Math.abs(deltaX) > minSwipeDistance) {
+                indicator.classList.add('active');
+                setTimeout(() => indicator.classList.remove('active'), 300);
+                
+                if (deltaX > 0) {
+                    // Swipe right - previous section
+                    navigateToSection(-1);
+                } else {
+                    // Swipe left - next section
+                    navigateToSection(1);
+                }
+            }
+            
+            touchStartX = 0;
+            touchStartY = 0;
+        }, { passive: true });
+        
+        // Navigate to section by direction
+        function navigateToSection(direction) {
+            const newIndex = currentSectionIndex + direction;
+            
+            if (newIndex >= 0 && newIndex < sections.length) {
+                const newSection = sections[newIndex];
+                const navElement = document.getElementById(`nav-${newSection}`);
+                switchSection(newSection, navElement);
+            }
+        }
+        
+        // Focus trap for modal overlays
+        function createFocusTrap(container) {
+            const focusableElements = container.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            
+            focusTrapElements = Array.from(focusableElements);
+            
+            if (focusTrapElements.length === 0) return;
+            
+            const firstElement = focusTrapElements[0];
+            const lastElement = focusTrapElements[focusTrapElements.length - 1];
+            
+            // Focus first element
+            firstElement.focus();
+            
+            // Handle tab navigation within trap
+            container.addEventListener('keydown', function(event) {
+                if (event.key === 'Tab') {
+                    if (event.shiftKey) {
+                        if (document.activeElement === firstElement) {
+                            lastElement.focus();
+                            event.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastElement) {
+                            firstElement.focus();
+                            event.preventDefault();
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Intersection Observer for scroll-based navigation updates
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50% 0px -50% 0px',
+            threshold: 0
+        };
+        
+        const sectionObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const navLink = document.getElementById(`nav-${sectionId}`);
+                    if (navLink && !navLink.getAttribute('aria-current')) {
+                        // Update navigation state without triggering full switch
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.removeAttribute('aria-current');
+                        });
+                        navLink.setAttribute('aria-current', 'page');
+                        currentSectionIndex = sections.indexOf(sectionId);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBreadcrumbs('aiCoach');
+            
+            // Observe all sections
+            document.querySelectorAll('.section').forEach(section => {
+                sectionObserver.observe(section);
+            });
+            
+            // Add loading state to all nav links on initial load
+            document.querySelectorAll('.nav-link, .sub-nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    this.classList.add('loading');
+                    setTimeout(() => this.classList.remove('loading'), 300);
+                });
+            });
+            
+            // Preload next sections for better performance
+            const linkElements = document.querySelectorAll('.nav-link');
+            linkElements.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    // Preload related content here
+                });
+            });
+        });
+        
+        // Performance monitoring (optional)
+        if (window.performance && window.performance.mark) {
+            window.performance.mark('navigation-ready');
+        }
+    </script>
+</body>
+</html>

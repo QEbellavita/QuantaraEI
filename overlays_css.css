@@ -1,0 +1,650 @@
+/* ====================================
+   AI LIFE PLATFORM - OVERLAYS CSS
+   Quantum Labs, Sensors Manager, Notifications
+   ==================================== */
+
+/* ====================================
+   LABS OVERLAY
+   ==================================== */
+
+.labs-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: calc(var(--mobile-safe-top) + 20px) 20px calc(var(--mobile-safe-bottom) + 20px) 20px;
+}
+
+.labs-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.labs-content {
+    max-width: 500px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+}
+
+.labs-header {
+    text-align: center;
+    margin-bottom: var(--xl);
+    position: relative;
+}
+
+.labs-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-learning);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.labs-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.labs-close {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.labs-close:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.labs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--lg);
+    margin-bottom: var(--xl);
+    flex: 1;
+    align-content: start;
+}
+
+.labs-overlay .lab-card {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.labs-overlay .lab-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.3);
+    border-color: var(--primary);
+}
+
+.labs-overlay .lab-card.active {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.labs-overlay .lab-card.quantum {
+    border-color: var(--accent);
+    background: rgba(168, 85, 247, 0.1);
+    animation: quantumGlow 3s ease-in-out infinite;
+}
+
+.labs-overlay .lab-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--success);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.labs-overlay .lab-card.quantum::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--quantum-primary);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.labs-overlay .lab-icon {
+    font-size: 2.2rem;
+    margin-bottom: var(--sm);
+}
+
+.labs-overlay .lab-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.labs-overlay .lab-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: var(--sm);
+}
+
+.lab-status {
+    position: absolute;
+    top: var(--sm);
+    right: var(--sm);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.lab-card.active .lab-status {
+    background: var(--success);
+    color: white;
+}
+
+.lab-card.quantum .lab-status {
+    background: var(--quantum-primary);
+    color: white;
+}
+
+.labs-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+    background: var(--surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    border: 1px solid var(--glass-border);
+}
+
+.lab-stat {
+    text-align: center;
+}
+
+.lab-stat .stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.lab-stat .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+@keyframes quantumGlow {
+    0%, 100% {
+        border-color: rgba(168, 85, 247, 0.3);
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+    }
+    50% {
+        border-color: rgba(0, 255, 212, 0.6);
+        box-shadow: 0 0 20px rgba(0, 255, 212, 0.3);
+    }
+}
+
+/* ====================================
+   SENSORS OVERLAY
+   ==================================== */
+
+.sensors-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: calc(var(--mobile-safe-top) + 20px) 20px calc(var(--mobile-safe-bottom) + 20px) 20px;
+    overflow-y: auto;
+}
+
+.sensors-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sensors-content {
+    max-width: 500px;
+    margin: 0 auto;
+    color: var(--text-primary);
+}
+
+.sensors-header {
+    text-align: center;
+    margin-bottom: var(--xl);
+    position: relative;
+}
+
+.sensors-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-health);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sensors-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.sensors-close {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.sensors-close:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* ====================================
+   SENSOR CARDS
+   ==================================== */
+
+.sensor-card {
+    background: var(--holographic);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+    transition: var(--transition);
+}
+
+.sensor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.sensor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--md);
+}
+
+.sensor-title {
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--error);
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.connected {
+    background: var(--success);
+}
+
+.status-indicator.connecting {
+    background: var(--warning);
+}
+
+.sensor-data {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--sm);
+    margin: var(--md) 0;
+}
+
+.data-item {
+    text-align: center;
+    padding: var(--sm);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.data-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-container {
+    margin: var(--md) 0;
+    padding: var(--md);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.audio-visualizer {
+    height: 60px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+    margin: var(--md) 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.audio-bar {
+    width: 3px;
+    height: 15px;
+    background: var(--secondary);
+    border-radius: 2px;
+    transition: height 0.1s ease;
+}
+
+.permission-notice,
+.sensor-info {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: var(--border-radius);
+    padding: var(--sm);
+    margin: var(--md) 0;
+    font-size: 0.8rem;
+    color: var(--warning);
+}
+
+.sensor-info {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+    color: var(--secondary);
+}
+
+.data-stream {
+    max-height: 100px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+    padding: var(--sm);
+    margin: var(--md) 0;
+    font-family: monospace;
+    font-size: 0.7rem;
+    line-height: 1.4;
+}
+
+.data-stream::-webkit-scrollbar {
+    width: 3px;
+}
+
+.data-stream::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.data-stream::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 2px;
+}
+
+.log-entry {
+    margin-bottom: 3px;
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-timestamp {
+    color: var(--text-muted);
+    font-size: 0.6rem;
+}
+
+/* ====================================
+   NOTIFICATIONS
+   ==================================== */
+
+.notification {
+    position: fixed;
+    top: calc(20px + var(--mobile-safe-top));
+    left: 16px;
+    right: 16px;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    color: white;
+    z-index: 1100;
+    font-weight: 600;
+    transform: translateY(-100px);
+    transition: transform 0.4s ease;
+    max-width: 430px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+}
+
+.notification.show {
+    transform: translateY(0);
+}
+
+.notification.success {
+    border-left: 4px solid var(--success);
+}
+
+.notification.info {
+    border-left: 4px solid var(--info);
+}
+
+.notification.warning {
+    border-left: 4px solid var(--warning);
+}
+
+.notification.error {
+    border-left: 4px solid var(--error);
+}
+
+.notification.quantum {
+    border-left: 4px solid var(--accent);
+    background: rgba(139, 92, 246, 0.1);
+}
+
+/* ====================================
+   RESPONSIVE OVERLAYS
+   ==================================== */
+
+@media (max-width: 768px) {
+    .labs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .labs-content {
+        padding: 0;
+    }
+    
+    .labs-overlay .lab-card {
+        height: 120px;
+    }
+    
+    .labs-title {
+        font-size: 1.5rem;
+    }
+    
+    .sensors-title {
+        font-size: 1.5rem;
+    }
+    
+    .sensor-data {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ====================================
+   OVERLAY ANIMATIONS
+   ==================================== */
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.labs-overlay.active .labs-content {
+    animation: slideInFromTop 0.6s ease;
+}
+
+.sensors-overlay.active .sensors-content {
+    animation: slideInFromTop 0.6s ease;
+}
+
+.sensor-card {
+    animation: fadeInScale 0.4s ease;
+}
+
+.labs-overlay .lab-card {
+    animation: fadeInScale 0.4s ease;
+    animation-delay: calc(var(--card-index, 0) * 0.1s);
+}
+
+/* ====================================
+   OVERLAY UTILITIES
+   ==================================== */
+
+.overlay-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 350;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-container {
+    position: relative;
+    z-index: 400;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 5vh auto;
+    padding: 0 20px;
+}
+
+.overlay-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--lg);
+    padding-bottom: var(--md);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.overlay-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: var(--sm);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.overlay-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transform: scale(1.1);
+}

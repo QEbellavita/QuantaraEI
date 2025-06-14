@@ -1,0 +1,527 @@
+/* ====================================
+   PERFORMANCE SECTION STYLES
+   ==================================== */
+
+/* Performance Section Base */
+.section.performance {
+    display: none;
+    animation: slideIn 0.4s ease;
+}
+
+.section.performance.active {
+    display: block;
+}
+
+/* Performance Tab Navigation */
+.performance .sub-nav {
+    display: flex;
+    gap: var(--sm);
+    margin-bottom: var(--lg);
+    overflow-x: auto;
+    padding: var(--sm) 0;
+    scrollbar-width: none;
+    role: tablist;
+}
+
+.performance .sub-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.performance .sub-nav-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: var(--sm) var(--md);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    role: tab;
+    aria-selected: false;
+}
+
+.performance .sub-nav-item.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    aria-selected: true;
+}
+
+.performance .sub-nav-item:hover:not(.active),
+.performance .sub-nav-item:focus-visible:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.performance .sub-nav-item:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+/* Performance Tab Content */
+.performance-tab {
+    display: none;
+    animation: slideIn 0.4s ease;
+}
+
+.performance-tab.active {
+    display: block;
+}
+
+/* Performance Cards */
+.performance .card {
+    background: var(--holographic);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.performance .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--ai-primary);
+    background-size: 200% 200%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Performance Stats */
+.performance .quick-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+    margin-bottom: var(--lg);
+}
+
+.performance .stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    text-align: center;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.performance .stat-item:hover,
+.performance .stat-item:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.performance .stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.performance .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Performance Feature Grid */
+.performance .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--md);
+}
+
+.performance .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    min-height: var(--touch-target-min);
+}
+
+.performance .feature-card:hover,
+.performance .feature-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.performance .feature-icon {
+    font-size: 2rem;
+    margin-bottom: var(--sm);
+}
+
+.performance .feature-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.performance .feature-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Energy Investment Planning */
+.energy-investment {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.investment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--md);
+    font-weight: 600;
+}
+
+.energy-points {
+    color: var(--warning);
+    font-size: 0.85rem;
+}
+
+.investment-allocator {
+    display: flex;
+    flex-direction: column;
+    gap: var(--md);
+    margin-bottom: var(--lg);
+}
+
+.investment-category {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sm);
+}
+
+.category-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.category-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.category-allocation {
+    color: var(--warning);
+    font-weight: 600;
+}
+
+.allocation-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.allocation-fill {
+    height: 100%;
+    background: var(--ai-productivity);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.optimize-allocation-btn {
+    width: 100%;
+    background: var(--ai-strategy);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    min-height: var(--touch-target-min);
+}
+
+.optimize-allocation-btn:hover,
+.optimize-allocation-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Productivity Specific Styles */
+.productivity-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.productivity-metric {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--success);
+    margin-bottom: 4px;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Energy Tab Specific */
+.energy-forecast {
+    margin: var(--md) 0;
+}
+
+.forecast-chart {
+    display: flex;
+    gap: 2px;
+    height: 40px;
+    margin: var(--sm) 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.forecast-bar {
+    flex: 1;
+    min-width: 2px;
+    transition: all 0.3s ease;
+    background: var(--ai-productivity);
+    opacity: 0.7;
+    border-radius: 1px;
+}
+
+.forecast-bar.peak {
+    opacity: 1;
+    background: var(--success);
+}
+
+.forecast-bar.low {
+    opacity: 0.4;
+    background: var(--warning);
+}
+
+/* Goals Tab Specific */
+.goals-overview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.goal-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    border-left: 4px solid var(--primary);
+}
+
+.goal-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--sm);
+}
+
+.goal-progress {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: var(--sm) 0;
+}
+
+.goal-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.goal-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Strategy Tab Specific */
+.strategy-matrix {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.strategy-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.strategy-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.strategy-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--sm);
+    font-size: 0.9rem;
+}
+
+.strategy-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.strategy-score {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--success);
+    margin-top: var(--sm);
+}
+
+/* Performance Animations */
+@keyframes performancePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.performance .stat-item.highlight {
+    animation: performancePulse 2s ease-in-out infinite;
+}
+
+/* Performance Action Buttons */
+.performance .btn {
+    background: var(--primary);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sm);
+    text-decoration: none;
+    min-height: var(--touch-target-min);
+}
+
+.performance .btn:hover,
+.performance .btn:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.performance .btn.energy {
+    background: var(--ai-productivity);
+}
+
+.performance .btn.goals {
+    background: var(--ai-goals);
+}
+
+.performance .btn.strategy {
+    background: var(--ai-strategy);
+}
+
+/* Responsive Design for Performance Section */
+@media (max-width: 768px) {
+    .performance .quick-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .performance .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .productivity-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .goals-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    .strategy-matrix {
+        grid-template-columns: 1fr;
+    }
+    
+    .performance .sub-nav {
+        gap: var(--md);
+        padding: var(--md) 0;
+    }
+    
+    .performance .sub-nav-item {
+        padding: var(--md) var(--lg);
+    }
+}
+
+/* Performance Focus States */
+.performance *:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--border-radius);
+}
+
+/* Performance Loading States */
+.performance .loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.performance .loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

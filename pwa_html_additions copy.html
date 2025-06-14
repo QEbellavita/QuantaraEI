@@ -1,0 +1,149 @@
+<!-- Add these to your <head> section after the existing meta tags -->
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- iOS Specific Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AI Life">
+
+<!-- iOS Icons -->
+<link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png">
+<link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png">
+<link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128x128.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+
+<!-- Standard Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+
+<!-- Windows Tiles -->
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<meta name="msapplication-TileColor" content="#667eea">
+
+<!-- Add this script before your closing </body> tag -->
+<script>
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('✅ Service Worker registered successfully:', registration);
+        
+        // Check for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New content available, show update notification
+              showNotification('🔄 App update available! Refresh to get the latest features.', 'info');
+            }
+          });
+        });
+      })
+      .catch(error => {
+        console.error('❌ Service Worker registration failed:', error);
+      });
+  });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  console.log('💾 PWA install prompt available');
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Show custom install button or notification
+  showNotification('📱 Install AI Life Platform as an app for the best experience!', 'info');
+  
+  // Add install button to interface if desired
+  showInstallButton();
+});
+
+function showInstallButton() {
+  // You can add a custom install button to your interface
+  const installBtn = document.createElement('button');
+  installBtn.className = 'btn quantum';
+  installBtn.innerHTML = '<span>📱</span><span>Install App</span>';
+  installBtn.onclick = () => installPWA();
+  
+  // Add to header or wherever appropriate
+  const header = document.querySelector('.app-header');
+  if (header && !document.getElementById('installBtn')) {
+    installBtn.id = 'installBtn';
+    header.appendChild(installBtn);
+  }
+}
+
+function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((result) => {
+      if (result.outcome === 'accepted') {
+        console.log('✅ User accepted PWA install');
+        showNotification('🎉 AI Life Platform installed successfully!', 'success');
+      } else {
+        console.log('❌ User dismissed PWA install');
+      }
+      deferredPrompt = null;
+      
+      // Remove install button
+      const installBtn = document.getElementById('installBtn');
+      if (installBtn) {
+        installBtn.remove();
+      }
+    });
+  }
+}
+
+// Detect if running as PWA
+function isPWA() {
+  return window.matchMedia('(display-mode: standalone)').matches || 
+         window.navigator.standalone === true;
+}
+
+// Enhanced PWA experience
+if (isPWA()) {
+  console.log('🚀 Running as PWA');
+  document.body.classList.add('pwa-mode');
+  
+  // Add PWA-specific styles or behaviors
+  const style = document.createElement('style');
+  style.textContent = `
+    .pwa-mode .app-container {
+      padding-top: calc(env(safe-area-inset-top) + 8px);
+    }
+    .pwa-mode .bottom-nav {
+      padding-bottom: calc(env(safe-area-inset-bottom) + 16px);
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Background sync registration
+if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+  navigator.serviceWorker.ready.then(registration => {
+    // Register background sync for data synchronization
+    registration.sync.register('biometric-sync');
+    registration.sync.register('conversation-sync');
+  });
+}
+
+// Push notification support
+if ('Notification' in window && 'serviceWorker' in navigator) {
+  // Request permission for notifications
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      console.log('🔔 Notification permission granted');
+    }
+  });
+}
+</script>

@@ -1,0 +1,37 @@
+/*
+ * Main CSS Entry Point
+ * Imports all stylesheets in the correct order
+ */
+
+/* 1. CSS Variables - Must be imported first */
+@import url('./variables.css');
+
+/* 2. Base styles - Resets and foundational styles */
+@import url('./base.css');
+
+/* 3. Layout - App structure and grid systems */
+@import url('./layout.css');
+
+/* 4. Reusable Components */
+@import url('./components/buttons.css');
+@import url('./components/forms.css');
+@import url('./components/cards.css');
+@import url('./components/modals.css');
+@import url('./components/navigation.css');
+@import url('./components/tables.css');
+@import url('./components/typography.css');
+@import url('./components/icons.css');
+
+/* 5. Feature-specific sections */
+@import url('./sections/header.css');
+@import url('./sections/footer.css');
+@import url('./sections/sidebar.css');
+@import url('./sections/dashboard.css');
+@import url('./sections/profile.css');
+@import url('./sections/settings.css');
+
+/* 6. Utility classes - Import last to ensure highest specificity */
+@import url('./utilities.css');
+
+/* 7. Media queries and responsive overrides */
+@import url('./responsive.css');

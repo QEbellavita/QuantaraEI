@@ -1,0 +1,416 @@
+/* ====================================
+ * BIOMETRIC MONITORING STYLES
+ * Styles for heart rate, stress, energy, and health metrics
+ * ==================================== */
+
+.biometric-dashboard {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 50%, #ff8a80 100%);
+    border-radius: 24px;
+    padding: 24px;
+    margin: 16px 0;
+    box-shadow: 0 10px 40px rgba(255, 107, 107, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.biometric-dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.biometric-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.biometric-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.biometric-icon {
+    font-size: 32px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    animation: heartbeat 2s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+}
+
+.biometric-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.biometric-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.vital-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.vital-card {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.vital-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.vital-card:hover::before {
+    transform: translateX(0);
+}
+
+.vital-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.vital-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.vital-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vital-icon {
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.vital-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.vital-unit {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-left: 4px;
+}
+
+.vital-trend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.trend-arrow {
+    font-size: 0.7rem;
+}
+
+.trend-up { color: #4ade80; }
+.trend-down { color: #f87171; }
+.trend-stable { color: #fbbf24; }
+
+.vital-range {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.range-optimal { border-left: 3px solid #4ade80; }
+.range-warning { border-left: 3px solid #fbbf24; }
+.range-critical { border-left: 3px solid #f87171; }
+
+.stress-visualization {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.stress-meter {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin: 0 auto 20px;
+}
+
+.stress-arc {
+    width: 200px;
+    height: 100px;
+}
+
+.stress-needle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    width: 2px;
+    height: 80px;
+    background: white;
+    border-radius: 1px;
+    transform: translate(-50%, -100%) rotate(0deg);
+    transition: transform 0.5s ease;
+}
+
+.stress-labels {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    margin-top: 8px;
+}
+
+.energy-wave {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.wave-container {
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.energy-level-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    border-radius: 12px;
+    transition: width 0.8s ease;
+    opacity: 0.8;
+}
+
+.wave-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1) 10px,
+        transparent 20px
+    );
+    animation: wave-move 3s linear infinite;
+}
+
+@keyframes wave-move {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+.hrv-chart {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.hrv-line {
+    height: 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hrv-path {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #4facfe, #00f2fe, #4facfe);
+    border-radius: 1px;
+    transform: translateY(-50%);
+    animation: hrv-fluctuation 4s ease-in-out infinite;
+}
+
+@keyframes hrv-fluctuation {
+    0%, 100% { transform: translateY(-50%) scaleY(1); }
+    25% { transform: translateY(-40%) scaleY(1.5); }
+    50% { transform: translateY(-50%) scaleY(0.8); }
+    75% { transform: translateY(-60%) scaleY(1.2); }
+}
+
+.biometric-insights {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.insights-header {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+}
+
+.insight-list {
+    space-y: 12px;
+}
+
+.insight-item {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.insight-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(4px);
+}
+
+.insight-positive { border-left-color: #4ade80; }
+.insight-warning { border-left-color: #fbbf24; }
+.insight-critical { border-left-color: #f87171; }
+
+.insight-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.alert-banner {
+    background: rgba(248, 113, 113, 0.2);
+    border: 1px solid rgba(248, 113, 113, 0.4);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.alert-icon {
+    font-size: 20px;
+    color: #f87171;
+}
+
+.alert-text {
+    font-weight: 500;
+    flex: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .vital-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .biometric-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    
+    .biometric-dashboard {
+        padding: 16px;
+        margin: 12px 0;
+    }
+    
+    .vital-value {
+        font-size: 1.8rem;
+    }
+    
+    .stress-meter {
+        width: 150px;
+        height: 75px;
+    }
+    
+    .stress-needle {
+        height: 60px;
+    }
+}

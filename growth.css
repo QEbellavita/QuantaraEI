@@ -1,0 +1,1031 @@
+/* Growth & Personal Development CSS */
+
+:root {
+    /* Growth specific gradients */
+    --ai-learning: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #00ffd4 100%);
+    --ai-habits: linear-gradient(135deg, #f59e0b 0%, #10b981 50%, #667eea 100%);
+    --ai-social: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
+    --ai-emotional: linear-gradient(135deg, #ec4899 0%, #f59e0b 50%, #10b981 100%);
+    --growth-gradient: linear-gradient(135deg, #10b981 0%, #00ffd4 50%, #a855f7 100%);
+    --skill-gradient: linear-gradient(135deg, #667eea 0%, #ec4899 50%, #f59e0b 100%);
+    
+    /* Core colors */
+    --primary: #667eea;
+    --secondary: #00ffd4;
+    --accent: #a855f7;
+    --success: #00ff88;
+    --warning: #ffaa00;
+    --error: #ff4757;
+    --info: #00d4ff;
+    
+    /* Text colors */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    
+    /* Surfaces */
+    --surface: rgba(15, 18, 45, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --holographic: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    
+    /* Spacing */
+    --sm: 8px;
+    --md: 16px;
+    --lg: 24px;
+    --xl: 32px;
+    
+    /* Border radius */
+    --border-radius: 14px;
+    --border-radius-lg: 18px;
+    
+    /* Transitions */
+    --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Learning & Growth Container */
+.learning-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.learning-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--ai-learning);
+    background-size: 200% 200%;
+    animation: learningShimmer 3s ease-in-out infinite;
+}
+
+@keyframes learningShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Learning Recommendations */
+.learning-recommendations {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.learning-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--md);
+    font-weight: 600;
+}
+
+.learning-icon {
+    font-size: 1.2rem;
+}
+
+.learning-title {
+    flex: 1;
+    margin: 0 var(--sm);
+}
+
+.learning-match {
+    color: var(--success);
+    font-size: 0.85rem;
+    background: rgba(16, 185, 129, 0.2);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.learning-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--md);
+}
+
+.learning-item {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    padding: var(--md);
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    min-height: 44px;
+    border: 1px solid transparent;
+}
+
+.learning-item:hover,
+.learning-item:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    border-color: var(--primary);
+}
+
+.learning-item:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+}
+
+.learning-type {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary);
+    background: rgba(102, 126, 234, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    min-width: 60px;
+    text-align: center;
+}
+
+.learning-type.video {
+    background: rgba(236, 72, 153, 0.2);
+    color: #ec4899;
+}
+
+.learning-type.article {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+}
+
+.learning-type.podcast {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+}
+
+.learning-content {
+    flex: 1;
+}
+
+.content-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+    font-size: 0.9rem;
+}
+
+.content-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.learning-score {
+    font-weight: 700;
+    color: var(--success);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    background: rgba(16, 185, 129, 0.2);
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+/* Habits & Behavior Tracking */
+.habits-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.habits-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--ai-habits);
+}
+
+.streak-container {
+    margin-top: var(--lg);
+}
+
+.streak-header {
+    font-weight: 600;
+    margin-bottom: var(--md);
+    color: var(--secondary);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+}
+
+.streak-card {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    transition: var(--transition);
+    margin-bottom: var(--md);
+}
+
+.streak-card:last-child {
+    margin-bottom: 0;
+}
+
+.streak-card.active-streak {
+    border: 1px solid var(--success);
+    background: rgba(16, 185, 129, 0.1);
+    animation: streakGlow 2s ease-in-out infinite;
+}
+
+@keyframes streakGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+    }
+}
+
+.streak-icon {
+    font-size: 1.5rem;
+    width: 48px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.streak-content {
+    flex: 1;
+}
+
+.streak-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.streak-count {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--success);
+    margin-bottom: 4px;
+}
+
+.streak-multiplier {
+    font-size: 0.8rem;
+    color: var(--warning);
+    font-weight: 600;
+    background: rgba(245, 158, 11, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.habit-tracker {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin: var(--md) 0;
+}
+
+.habit-day {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.habit-day.completed {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.habit-day.missed {
+    background: var(--error);
+    border-color: var(--error);
+}
+
+.habit-day.today {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.4);
+}
+
+/* Skills & Competencies */
+.skills-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--md) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skill-item:last-child {
+    border-bottom: none;
+}
+
+.skill-info {
+    flex: 1;
+}
+
+.skill-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.skill-level {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.skill-progress {
+    width: 100px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-left: var(--md);
+}
+
+.skill-progress-fill {
+    height: 100%;
+    background: var(--skill-gradient);
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+/* Achievement System */
+.achievement-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.achievement-badge {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    min-height: 44px;
+}
+
+.achievement-badge.unlocked {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.achievement-badge.unlocked:hover,
+.achievement-badge.unlocked:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+.achievement-badge.locked {
+    opacity: 0.5;
+    filter: grayscale(0.7);
+}
+
+.achievement-badge:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+}
+
+.badge-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.badge-info {
+    flex: 1;
+}
+
+.badge-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.badge-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.badge-progress {
+    font-size: 0.75rem;
+    color: var(--warning);
+    margin-top: 4px;
+}
+
+/* RPG/Gamification Elements */
+.character-classes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.class-card {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.class-card:hover,
+.class-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.class-card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+}
+
+.class-card.health-mage {
+    border-left: 4px solid #ec4899;
+}
+
+.class-card.productivity-warrior {
+    border-left: 4px solid #10b981;
+}
+
+.class-card.social-diplomat {
+    border-left: 4px solid #06b6d4;
+}
+
+.class-card.learning-scholar {
+    border-left: 4px solid #a855f7;
+}
+
+.class-header {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    margin-bottom: var(--sm);
+}
+
+.class-icon {
+    font-size: 2rem;
+    width: 60px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.class-info {
+    flex: 1;
+}
+
+.class-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.class-level {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.class-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: var(--sm);
+}
+
+.xp-container {
+    text-align: right;
+    min-width: 120px;
+}
+
+.xp-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.xp-bar {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.xp-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success), var(--secondary));
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+/* Gratitude Intelligence */
+.gratitude-intelligence {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.gratitude-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--md);
+    font-weight: 600;
+}
+
+.gratitude-icon {
+    font-size: 1.2rem;
+}
+
+.gratitude-title {
+    flex: 1;
+    margin: 0 var(--sm);
+}
+
+.gratitude-boost {
+    color: var(--success);
+    font-size: 0.85rem;
+    background: rgba(16, 185, 129, 0.2);
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.gratitude-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--md);
+    margin-bottom: var(--lg);
+}
+
+.gratitude-item {
+    padding: var(--md);
+    border-radius: var(--border-radius);
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 3px solid var(--warning);
+    transition: var(--transition);
+}
+
+.gratitude-item:hover {
+    background: rgba(255, 215, 0, 0.15);
+    transform: translateX(2px);
+}
+
+.gratitude-moment {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.gratitude-context {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    font-style: italic;
+}
+
+/* Social & Emotional Intelligence */
+.social-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.social-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--ai-social);
+}
+
+.emotional-state-display {
+    text-align: center;
+    padding: var(--xl) var(--lg);
+    background: var(--surface);
+    border-radius: var(--border-radius);
+    margin: var(--lg) 0;
+    border: 1px solid var(--glass-border);
+}
+
+.emotional-state-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-emotional);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.emotional-confidence {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--success);
+    margin-bottom: var(--sm);
+}
+
+.emotional-recommendations {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: var(--sm);
+}
+
+.social-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.social-metric {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    text-align: center;
+    border: 1px solid var(--glass-border);
+}
+
+.social-metric-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.social-metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Goal Tracking */
+.goals-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    padding: var(--md);
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: var(--md);
+    transition: var(--transition);
+}
+
+.goal-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+.goal-icon {
+    font-size: 1.2rem;
+    width: 32px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.goal-content {
+    flex: 1;
+}
+
+.goal-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.goal-progress-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.goal-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.goal-progress-fill {
+    height: 100%;
+    background: var(--growth-gradient);
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.goal-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.goal-status.on-track {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+}
+
+.goal-status.behind {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+}
+
+.goal-status.completed {
+    background: rgba(102, 126, 234, 0.2);
+    color: var(--primary);
+}
+
+/* Learning Path Visualization */
+.learning-path {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.path-node {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+    padding: var(--md);
+    margin-bottom: var(--md);
+    position: relative;
+}
+
+.path-node::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 100%;
+    width: 2px;
+    height: var(--md);
+    background: var(--glass-border);
+}
+
+.path-node:last-child::before {
+    display: none;
+}
+
+.path-node.completed::before {
+    background: var(--success);
+}
+
+.path-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    border: 2px solid var(--glass-border);
+    background: var(--surface);
+}
+
+.path-node.completed .path-icon {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+}
+
+.path-node.current .path-icon {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    animation: currentPulse 2s ease-in-out infinite;
+}
+
+@keyframes currentPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(102, 126, 234, 0);
+    }
+}
+
+.path-content {
+    flex: 1;
+}
+
+.path-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.path-description {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .achievement-gallery {
+        grid-template-columns: 1fr;
+    }
+    
+    .social-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .learning-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--sm);
+    }
+    
+    .learning-type {
+        align-self: flex-start;
+    }
+    
+    .learning-score {
+        align-self: flex-end;
+    }
+    
+    .class-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--sm);
+    }
+    
+    .xp-container {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .streak-card {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--sm);
+    }
+    
+    .social-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .habit-tracker {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 2px;
+    }
+    
+    .habit-day {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .goal-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--sm);
+    }
+    
+    .goal-status {
+        align-self: flex-end;
+    }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+    .streak-card.active-streak,
+    .path-node.current .path-icon {
+        animation: none !important;
+    }
+    
+    .learning-item:hover,
+    .achievement-badge:hover,
+    .class-card:hover {
+        transform: none !important;
+    }
+    
+    .xp-progress,
+    .skill-progress-fill,
+    .goal-progress-fill {
+        transition: none !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .learning-item,
+    .achievement-badge,
+    .class-card,
+    .goal-item {
+        border-width: 2px;
+    }
+    
+    .learning-item:hover,
+    .achievement-badge.unlocked,
+    .streak-card.active-streak {
+        border-width: 3px;
+    }
+}
+
+/* Focus Management */
+.learning-item:focus-visible,
+.achievement-badge:focus-visible,
+.class-card:focus-visible,
+.goal-item:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+    border-radius: var(--border-radius);
+}
+
+/* Usage Examples:
+ * 
+ * Learning Recommendations:
+ * <div class="learning-recommendations">
+ *   <div class="learning-header">
+ *     <span class="learning-icon">📚</span>
+ *     <span class="learning-title">Personalized Learning</span>
+ *     <span class="learning-match">94% Match</span>
+ *   </div>
+ *   <div class="learning-grid">
+ *     <a href="#" class="learning-item">
+ *       <div class="learning-type video">🎥 Video</div>
+ *       <div class="learning-content">
+ *         <div class="content-title">Advanced Time Management</div>
+ *         <div class="content-meta">12 min • Productivity</div>
+ *       </div>
+ *       <div class="learning-score">97%</div>
+ *     </a>
+ *   </div>
+ * </div>
+ * 
+ * Character Class:
+ * <div class="class-card productivity-warrior">
+ *   <div class="class-header">
+ *     <div class="class-icon">⚔️</div>
+ *     <div class="class-info">
+ *       <div class="class-name">Productivity Warrior</div>
+ *       <div class="class-level">Level 15</div>
+ *     </div>
+ *     <div class="xp-container">
+ *       <div class="xp-text">2847/3200 XP</div>
+ *       <div class="xp-bar">
+ *         <div class="xp-progress" style="width: 89%;"></div>
+ *       </div>
+ *     </div>
+ *   </div>
+ * </div>
+ * 
+ * Achievement Badge:
+ * <a href="#" class="achievement-badge unlocked">
+ *   <div class="badge-icon">🏆</div>
+ *   <div class="badge-info">
+ *     <div class="badge-name">Master Learner</div>
+ *     <div class="badge-desc">Complete 100 learning activities</div>
+ *   </div>
+ * </a>
+ */
