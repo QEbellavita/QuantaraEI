@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quantara Biometric Processor + Full Dashboard v2</title>
+</head>
+<body>
+  <h1>Quantara Biometric Processor</h1>
+  <div id="status">Initializing...</div>
+
+  <!-- Emotion & Wellness Dashboard -->
+  <div id="emotionDashboard" style="padding: 1em; border: 2px solid #ccc; margin: 1em 0; border-radius: 8px; max-width: 400px; background: #f9f9f9;">
+    <h3>🧠 Emotion & Wellness Dashboard</h3>
+    <div><strong>Current Emotions:</strong> <span id="currentEmotions">N/A</span></div>
+    <div><strong>Resilience Score:</strong> <span id="resilienceScore">N/A</span></div>
+    <div><strong>Chronic Stress Index:</strong> <span id="chronicStressIndex">N/A</span></div>
+  </div>
+
+  <!-- Suggestions Dashboard -->
+  <div id="suggestionsDashboard" style="padding: 1em; border: 2px solid #ccc; margin: 1em 0; border-radius: 8px; max-width: 400px; background: #f0f8ff;">
+    <h3>💡 Adaptive Suggestions</h3>
+    <div id="currentSuggestion">Waiting for data...</div>
+  </div>
+
+  <!-- Emotion History Log -->
+  <div id="emotionHistoryLog" style="padding: 1em; border: 2px solid #ccc; margin: 1em 0; border-radius: 8px; max-width: 400px; background: #fffaf0; overflow-y: auto; max-height: 200px;">
+    <h3>🕒 Emotion History Log</h3>
+    <ul id="emotionHistoryList" style="list-style-type: none; padding-left: 0;"></ul>
+  
+</div>
+
+<!-- Export History Button -->
+<div style="margin: 1em 0;">
+  <button id="exportHistoryButton" style="padding: 0.5em 1em; font-size: 1em;">📤 Export Emotion History to CSV</button>
+</div>
+
+<!-- Main app bootstrap with safe production flow and full dashboard -->
+  <script type="module">
+    import UniversalSystemBridge from './integrated-engine-bridge.js';
+    import ProcessorCore from './ProcessorCore.js';
+    import EmotionEngine from './EmotionEngine.js';
+    import WellnessEngine from './WellnessEngine.js';
+    import SuggestionsEngine from './SuggestionsEngine.js';
+
+    const bridge = new UniversalSystemBridge();
+    console.log("Bridge constructed");
+
+    bridge.initialize().then(() => {
+      console.log("Bridge initialized");
+      document.getElementById('status').textContent = 'Bridge initialized';
+
+      // Configure data channels AFTER bridge is initialized
+      const emotionEngine = new EmotionEngine();
+      const wellnessEngine = new WellnessEngine();
+      const suggestionsEngine = new SuggestionsEngine();
+
+      let latestHR = 70;
+      let latestEDA = 0.2;
+
+      function updateEmotionDashboard(emotionResult, wellnessMetrics) {
+          document.getElementById('currentEmotions').textContent = JSON.stringify(emotionResult.emotions);
+          document.getElementById('resilienceScore').textContent = wellnessMetrics.resilienceScore.toFixed(1);
+          document.getElementById('chronicStressIndex').textContent = wellnessMetrics.chronicStressIndex.toFixed(1);
+      }
+
+      function updateSuggestionsDashboard(emotionResult) {
+          const suggestion = suggestionsEngine.generateSuggestion(emotionResult);
+          document.getElementById('currentSuggestion').textContent = suggestion;
+          return suggestion;
+      }
+
+      function addToEmotionHistoryLog(emotionResult, suggestion) {
+          const timestamp = new Date().toLocaleTimeString();
+          const emotionsStr = JSON.stringify(emotionResult.emotions);
+
+          const entry = document.createElement('li');
+          entry.textContent = `[${timestamp}] ${emotionsStr} → ${suggestion}`;
+
+          const list = document.getElementById('emotionHistoryList');
+          list.insertBefore(entry, list.firstChild);
+
+          // Limit history length
+          if (list.childElementCount > 50) {
+              list.removeChild(list.lastChild);
+          }
+      }
+
+      bridge.channels.data.set('heartRate', (payload) => {
+          console.log('[Data Channel] heartRate →', payload);
+          latestHR = payload;
+
+          const emotionResult = emotionEngine.analyzeBiometricData({
+              heartRate: latestHR,
+              eda: latestEDA
+          });
+
+          const wellnessMetrics = wellnessEngine.update(50, emotionResult.emotions.stress ?? 0.3);
+
+          updateEmotionDashboard(emotionResult, wellnessMetrics);
+          const suggestion = updateSuggestionsDashboard(emotionResult);
+          addToEmotionHistoryLog(emotionResult, suggestion);
+
+          bridge.updateEmotionSource('biometrics', emotionResult);
+      });
+
+      bridge.channels.data.set('eda', (payload) => {
+          console.log('[Data Channel] eda →', payload);
+          latestEDA = payload;
+
+          const emotionResult = emotionEngine.analyzeBiometricData({
+              heartRate: latestHR,
+              eda: latestEDA
+          });
+
+          const wellnessMetrics = wellnessEngine.update(50, emotionResult.emotions.stress ?? 0.3);
+
+          updateEmotionDashboard(emotionResult, wellnessMetrics);
+          const suggestion = updateSuggestionsDashboard(emotionResult);
+          addToEmotionHistoryLog(emotionResult, suggestion);
+
+          bridge.updateEmotionSource('biometrics', emotionResult);
+      });
+
+      console.log("Data channels configured with EmotionEngine, WellnessEngine, SuggestionsEngine");
+
+      const core = new ProcessorCore(
+        {
+          sensors: {
+            hr: {}, // sensor config (optional)
+            eda: {} // sensor config (optional)
+          },
+          normalizer: { windowSize: 10 }
+        },
+        bridge
+      );
+
+      console.log("ProcessorCore constructed");
+
+      core.start();
+      console.log("ProcessorCore started");
+
+      document.getElementById('status').textContent = 'Biometric processing started';
+    }).catch(err => {
+      console.error("❌ Bridge initialization error:", err);
+      document.getElementById('status').textContent = 'Bridge init error - check console';
+    });
+  
+document.getElementById('exportHistoryButton').addEventListener('click', () => {
+    const listItems = document.querySelectorAll('#emotionHistoryList li');
+    const csvLines = ['Timestamp,Emotions,Suggestion'];
+
+    listItems.forEach(li => {
+        const match = li.textContent.match(/^\[(.*?)\]\s+(.*?)\s+→\s+(.*)$/);
+        if (match) {
+            const timestamp = match[1];
+            const emotionsStr = match[2].replace(/"/g, '""');
+            const suggestion = match[3].replace(/"/g, '""');
+            csvLines.push(`"${timestamp}","${emotionsStr}","${suggestion}"`);
+        }
+    });
+
+    const csvContent = csvLines.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'EmotionHistory.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+
+</script>
+</body>
+</html>

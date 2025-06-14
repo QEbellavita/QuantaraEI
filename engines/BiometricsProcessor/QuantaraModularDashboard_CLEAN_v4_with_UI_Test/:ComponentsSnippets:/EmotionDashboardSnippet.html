@@ -1,0 +1,61 @@
+
+<!-- Emotion & Wellness Dashboard -->
+<div id="emotionDashboard" style="padding: 1em; border: 2px solid #ccc; margin: 1em 0; border-radius: 8px; max-width: 400px; background: #f9f9f9;">
+  <h3>🧠 Emotion & Wellness Dashboard</h3>
+  <div><strong>Current Emotions:</strong> <span id="currentEmotions">N/A</span></div>
+  <div><strong>Resilience Score:</strong> <span id="resilienceScore">N/A</span></div>
+  <div><strong>Chronic Stress Index:</strong> <span id="chronicStressIndex">N/A</span></div>
+</div>
+
+
+<!-- JS Snippet -->
+<script type='module'>
+
+// === Emotion Dashboard Update Example ===
+
+function updateEmotionDashboard(emotionResult, wellnessMetrics) {
+    document.getElementById('currentEmotions').textContent = JSON.stringify(emotionResult.emotions);
+    document.getElementById('resilienceScore').textContent = wellnessMetrics.resilienceScore.toFixed(1);
+    document.getElementById('chronicStressIndex').textContent = wellnessMetrics.chronicStressIndex.toFixed(1);
+}
+
+// Example integration in data handlers:
+
+// After bridge.initialize()
+
+const emotionEngine = new EmotionEngine();
+const wellnessEngine = new WellnessEngine();
+
+let latestHR = 70;
+let latestEDA = 0.2;
+
+// Setup channels
+bridge.channels.data.set('heartRate', (payload) => {
+    console.log('[Data Channel] heartRate →', payload);
+    latestHR = payload;
+
+    const emotionResult = emotionEngine.analyzeBiometricData({
+        heartRate: latestHR,
+        eda: latestEDA
+    });
+
+    const wellnessMetrics = wellnessEngine.update(50, emotionResult.emotions.stress ?? 0.3); // Example HRV value 50 ms
+
+    updateEmotionDashboard(emotionResult, wellnessMetrics);
+});
+
+bridge.channels.data.set('eda', (payload) => {
+    console.log('[Data Channel] eda →', payload);
+    latestEDA = payload;
+
+    const emotionResult = emotionEngine.analyzeBiometricData({
+        heartRate: latestHR,
+        eda: latestEDA
+    });
+
+    const wellnessMetrics = wellnessEngine.update(50, emotionResult.emotions.stress ?? 0.3); // Example HRV value 50 ms
+
+    updateEmotionDashboard(emotionResult, wellnessMetrics);
+});
+
+</script>

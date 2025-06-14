@@ -1,0 +1,38 @@
+
+<!-- Export History Button -->
+<div style="margin: 1em 0;">
+  <button id="exportHistoryButton" style="padding: 0.5em 1em; font-size: 1em;">📤 Export Emotion History to CSV</button>
+</div>
+
+
+<!-- JS Snippet -->
+<script type='module'>
+
+document.getElementById('exportHistoryButton').addEventListener('click', () => {
+    const listItems = document.querySelectorAll('#emotionHistoryList li');
+    const csvLines = ['Timestamp,Emotions,Suggestion'];
+
+    listItems.forEach(li => {
+        // Example line format: [10:23:12] {"calm":0.9,"stress":0.1} → Suggestion text
+        const match = li.textContent.match(/^\[(.*?)\]\s+(.*?)\s+→\s+(.*)$/);
+        if (match) {
+            const timestamp = match[1];
+            const emotionsStr = match[2].replace(/"/g, '""'); // Escape double quotes
+            const suggestion = match[3].replace(/"/g, '""');
+            csvLines.push(`"${timestamp}","${emotionsStr}","${suggestion}"`);
+        }
+    });
+
+    const csvContent = csvLines.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'EmotionHistory.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+
+</script>

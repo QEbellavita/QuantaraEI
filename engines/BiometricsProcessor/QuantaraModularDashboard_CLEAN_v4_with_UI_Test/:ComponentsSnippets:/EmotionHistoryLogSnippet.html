@@ -1,0 +1,28 @@
+
+<!-- Emotion History Log -->
+<div id="emotionHistoryLog" style="padding: 1em; border: 2px solid #ccc; margin: 1em 0; border-radius: 8px; max-width: 400px; background: #fffaf0; overflow-y: auto; max-height: 200px;">
+  <h3>🕒 Emotion History Log</h3>
+  <ul id="emotionHistoryList" style="list-style-type: none; padding-left: 0;"></ul>
+</div>
+
+
+<!-- JS Snippet -->
+<script type='module'>
+
+function addToEmotionHistoryLog(emotionResult, suggestion) {
+    const timestamp = new Date().toLocaleTimeString();
+    const emotionsStr = JSON.stringify(emotionResult.emotions);
+
+    const entry = document.createElement('li');
+    entry.textContent = `[${timestamp}] ${emotionsStr} → ${suggestion}`;
+
+    const list = document.getElementById('emotionHistoryList');
+    list.insertBefore(entry, list.firstChild);
+
+    // Limit history length
+    if (list.childElementCount > 50) {
+        list.removeChild(list.lastChild);
+    }
+}
+
+</script>

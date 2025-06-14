@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quantara Engine Test UI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      background: #f4f4f9;
+    }
+    h1 {
+      color: #444;
+    }
+    .block {
+      padding: 1em;
+      background: #fff;
+      border: 1px solid #ccc;
+      margin-bottom: 1em;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 0.5em;
+      padding: 0.5em 1em;
+    }
+    pre {
+      background: #222;
+      color: #0f0;
+      padding: 1em;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔬 Quantara Engine Testing UI</h1>
+
+  <div class="block">
+    <h2>🎭 Run Emotion Engine</h2>
+    <button onclick="runEmotion()">Run Emotion Analysis</button>
+    <pre id="emotionOutput">Waiting...</pre>
+  </div>
+
+  <div class="block">
+    <h2>💓 Run Wellness Engine</h2>
+    <button onclick="runWellness()">Run Wellness Evaluation</button>
+    <pre id="wellnessOutput">Waiting...</pre>
+  </div>
+
+  <div class="block">
+    <h2>💡 Get Suggestion</h2>
+    <button onclick="runSuggestion()">Generate Suggestion</button>
+    <pre id="suggestionOutput">Waiting...</pre>
+  </div>
+
+  <script type="module">
+    import EmotionEngine from '../EmotionEngine/EmotionEngine.js';
+    import WellnessEngine from '../WellnessEngine/WellnessEngine.js';
+    import SuggestionsEngine from '../SuggestionsEngine/SuggestionsEngine.js';
+
+    const emotionEngine = new EmotionEngine();
+    const wellnessEngine = new WellnessEngine();
+    const suggestionsEngine = new SuggestionsEngine();
+
+    const mockEmotionData = { joy: 0.75, fear: 0.1, anger: 0.05, sadness: 0.15 };
+    const mockPhysData = { heartRate: 82, eda: 0.42, hrv: 0.09 };
+
+    let latestEmotion = {};
+
+    window.runEmotion = () => {
+      const result = emotionEngine.process(mockEmotionData);
+      latestEmotion = result;
+      document.getElementById('emotionOutput').textContent = JSON.stringify(result, null, 2);
+    };
+
+    window.runWellness = () => {
+      const result = wellnessEngine.evaluate(mockPhysData);
+      document.getElementById('wellnessOutput').textContent = JSON.stringify(result, null, 2);
+    };
+
+    window.runSuggestion = () => {
+      const suggestion = suggestionsEngine.generateSuggestion(latestEmotion);
+      document.getElementById('suggestionOutput').textContent = suggestion;
+    };
+  </script>
+</body>
+</html>
