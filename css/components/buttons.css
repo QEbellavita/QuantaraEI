@@ -1,0 +1,543 @@
+/* css/components/buttons.css - Button Component Styles */
+
+/* === BASE BUTTON STYLES === */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--quantum-spacing-2);
+  padding: var(--quantum-spacing-3) var(--quantum-spacing-6);
+  font-family: var(--quantum-font-primary);
+  font-size: var(--quantum-text-base);
+  font-weight: var(--quantum-font-medium);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--quantum-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--quantum-transition-fast);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.3);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* === BUTTON VARIANTS === */
+
+/* Primary Button */
+.btn-primary {
+  background: var(--quantum-gradient-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+  border: 1px solid transparent;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--quantum-transition-medium);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: var(--quantum-gradient-secondary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+  border: 1px solid transparent;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--quantum-transition-medium);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 77, 255, 0.4);
+}
+
+.btn-secondary:hover::before {
+  left: 100%;
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(124, 77, 255, 0.3);
+}
+
+/* Outline Button */
+.btn-outline {
+  background: transparent;
+  color: var(--quantum-primary);
+  border: 1px solid var(--quantum-primary);
+  box-shadow: 0 0 0 rgba(0, 212, 255, 0);
+}
+
+.btn-outline:hover {
+  background: var(--quantum-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-outline:active {
+  transform: translateY(0);
+}
+
+/* Ghost Button */
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Glass Button */
+.btn-glass {
+  background: var(--quantum-glass-bg);
+  backdrop-filter: var(--quantum-glass-blur);
+  color: #ffffff;
+  border: 1px solid var(--quantum-glass-border);
+}
+
+.btn-glass:hover {
+  background: var(--quantum-glass-bg-hover);
+  border-color: var(--quantum-glass-border-hover);
+  box-shadow: var(--quantum-glow-primary);
+  transform: translateY(-2px);
+}
+
+.btn-glass:active {
+  transform: translateY(0);
+  background: var(--quantum-glass-bg-active);
+}
+
+/* Quantum Button */
+.btn-quantum {
+  background: var(--quantum-gradient-consciousness);
+  color: #ffffff;
+  border: 1px solid transparent;
+  box-shadow: var(--quantum-glow-consciousness);
+  position: relative;
+}
+
+.btn-quantum::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all var(--quantum-transition-medium);
+}
+
+.btn-quantum:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-quantum:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4), 0 4px 10px rgba(124, 77, 255, 0.3);
+}
+
+.btn-quantum:active {
+  transform: translateY(0);
+}
+
+/* === BUTTON SIZES === */
+
+.btn-xs {
+  padding: var(--quantum-spacing-1) var(--quantum-spacing-3);
+  font-size: var(--quantum-text-xs);
+  height: var(--quantum-btn-height-sm);
+}
+
+.btn-sm {
+  padding: var(--quantum-spacing-2) var(--quantum-spacing-4);
+  font-size: var(--quantum-text-sm);
+  height: var(--quantum-btn-height-sm);
+}
+
+.btn-md {
+  padding: var(--quantum-spacing-3) var(--quantum-spacing-6);
+  font-size: var(--quantum-text-base);
+  height: var(--quantum-btn-height-md);
+}
+
+.btn-lg {
+  padding: var(--quantum-spacing-4) var(--quantum-spacing-8);
+  font-size: var(--quantum-text-lg);
+  height: var(--quantum-btn-height-lg);
+}
+
+.btn-xl {
+  padding: var(--quantum-spacing-5) var(--quantum-spacing-10);
+  font-size: var(--quantum-text-xl);
+  height: var(--quantum-btn-height-xl);
+}
+
+/* === BUTTON STATES === */
+
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1em;
+  height: 1em;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.btn-success {
+  background: var(--quantum-success);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
+}
+
+.btn-success:hover {
+  background: var(--quantum-success-light);
+  box-shadow: 0 6px 20px rgba(0, 230, 118, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-warning {
+  background: var(--quantum-warning);
+  color: var(--quantum-bg-primary);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.btn-warning:hover {
+  background: var(--quantum-warning-light);
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-error {
+  background: var(--quantum-error);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(255, 23, 68, 0.3);
+}
+
+.btn-error:hover {
+  background: var(--quantum-error-light);
+  box-shadow: 0 6px 20px rgba(255, 23, 68, 0.4);
+  transform: translateY(-2px);
+}
+
+/* === SPECIAL BUTTON TYPES === */
+
+/* Icon Button */
+.btn-icon {
+  padding: var(--quantum-spacing-3);
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.btn-icon-sm {
+  padding: var(--quantum-spacing-2);
+  font-size: var(--quantum-text-sm);
+}
+
+.btn-icon-lg {
+  padding: var(--quantum-spacing-4);
+  font-size: var(--quantum-text-lg);
+}
+
+/* Floating Action Button */
+.btn-fab {
+  position: fixed;
+  bottom: var(--quantum-spacing-6);
+  right: var(--quantum-spacing-6);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--quantum-gradient-primary);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+  z-index: var(--quantum-z-elevated);
+  transition: all var(--quantum-transition-fast);
+}
+
+.btn-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(0, 212, 255, 0.5);
+}
+
+.btn-fab:active {
+  transform: scale(0.95);
+}
+
+/* Toggle Button */
+.btn-toggle {
+  background: var(--quantum-surface-2);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--quantum-glass-border);
+}
+
+.btn-toggle.active {
+  background: var(--quantum-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+.btn-toggle:hover:not(.active) {
+  background: var(--quantum-surface-3);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* === BUTTON GROUPS === */
+
+.btn-group {
+  display: inline-flex;
+  border-radius: var(--quantum-radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-group .btn {
+  border-radius: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 0;
+}
+
+.btn-group .btn:first-child {
+  border-radius: var(--quantum-radius-md) 0 0 var(--quantum-radius-md);
+}
+
+.btn-group .btn:last-child {
+  border-radius: 0 var(--quantum-radius-md) var(--quantum-radius-md) 0;
+  border-right: none;
+}
+
+.btn-group .btn:only-child {
+  border-radius: var(--quantum-radius-md);
+  border-right: none;
+}
+
+.btn-group-vertical {
+  flex-direction: column;
+}
+
+.btn-group-vertical .btn {
+  border-right: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-group-vertical .btn:first-child {
+  border-radius: var(--quantum-radius-md) var(--quantum-radius-md) 0 0;
+}
+
+.btn-group-vertical .btn:last-child {
+  border-radius: 0 0 var(--quantum-radius-md) var(--quantum-radius-md);
+  border-bottom: none;
+}
+
+/* === QUANTUM EFFECTS === */
+
+.btn-pulse {
+  animation: btnPulse 2s infinite;
+}
+
+@keyframes btnPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
+  }
+}
+
+.btn-glow {
+  box-shadow: 0 0 20px currentColor;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 30px currentColor, 0 0 40px currentColor;
+}
+
+.btn-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+
+@media (max-width: 768px) {
+  .btn {
+    padding: var(--quantum-spacing-3) var(--quantum-spacing-5);
+    font-size: var(--quantum-text-sm);
+  }
+  
+  .btn-lg {
+    padding: var(--quantum-spacing-4) var(--quantum-spacing-6);
+    font-size: var(--quantum-text-base);
+  }
+  
+  .btn-xl {
+    padding: var(--quantum-spacing-5) var(--quantum-spacing-8);
+    font-size: var(--quantum-text-lg);
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .btn:first-child {
+    border-radius: var(--quantum-radius-md) var(--quantum-radius-md) 0 0;
+  }
+  
+  .btn-group .btn:last-child {
+    border-radius: 0 0 var(--quantum-radius-md) var(--quantum-radius-md);
+  }
+  
+  .btn-fab {
+    bottom: var(--quantum-spacing-4);
+    right: var(--quantum-spacing-4);
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* === ACCESSIBILITY === */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::before,
+  .btn::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .btn:hover {
+    transform: none !important;
+  }
+  
+  .btn:active {
+    transform: none !important;
+  }
+  
+  .btn-pulse,
+  .btn-shimmer {
+    animation: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .btn {
+    border-width: 2px;
+  }
+  
+  .btn-outline {
+    border-width: 2px;
+  }
+  
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.1);
+    border-width: 2px;
+  }
+}
+
+/* === PRINT STYLES === */
+
+@media print {
+  .btn {
+    background: none !important;
+    color: black !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  
+  .btn-fab {
+    display: none !important;
+  }
+  
+  .btn::before,
+  .btn::after {
+    display: none !important;
+  }
+}

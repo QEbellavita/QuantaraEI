@@ -1,0 +1,636 @@
+/* Navigation CSS */
+
+:root {
+    /* Color variables */
+    --primary: #667eea;
+    --primary-light: #a78bfa;
+    --secondary: #00ffd4;
+    --accent: #a855f7;
+    --success: #00ff88;
+    --warning: #ffaa00;
+    --error: #ff4757;
+    --info: #00d4ff;
+    
+    /* Text colors */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    
+    /* Surfaces */
+    --surface: rgba(15, 18, 45, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --holographic: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    
+    /* Spacing and layout */
+    --border-radius: 14px;
+    --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    --mobile-safe-bottom: env(safe-area-inset-bottom);
+    --mobile-safe-top: env(safe-area-inset-top);
+    
+    /* Focus and accessibility */
+    --focus-ring: 0 0 0 3px rgba(102, 126, 234, 0.6);
+    --touch-target-min: 44px;
+}
+
+/* Skip Navigation for Accessibility */
+.skip-nav {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    z-index: 1000;
+    background: var(--primary);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: top 0.3s;
+    font-weight: 600;
+}
+
+.skip-nav:focus {
+    top: 6px;
+}
+
+/* Enhanced Bottom Navigation */
+.enhanced-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--holographic);
+    backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px 20px 0 0;
+    padding: 1rem 1rem calc(1rem + var(--mobile-safe-bottom)) 1rem;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 52px;
+    role: menubar;
+}
+
+.nav-item {
+    display: flex;
+    flex: 1;
+    max-width: 80px;
+    role: none;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+    color: var(--text-primary);
+}
+
+.nav-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.nav-link[aria-current="page"] {
+    background: rgba(102, 126, 234, 0.2);
+    color: var(--primary);
+    transform: scale(1.05);
+}
+
+.nav-icon {
+    font-size: 1.3rem;
+    margin-bottom: 2px;
+    transition: var(--transition);
+}
+
+.nav-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+}
+
+/* Navigation Badge */
+.nav-badge {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    background: var(--error);
+    color: white;
+    font-size: 0.6rem;
+    padding: 0.125rem 0.25rem;
+    border-radius: 10px;
+    min-width: 1rem;
+    text-align: center;
+    line-height: 1;
+    font-weight: 600;
+}
+
+.nav-badge.success {
+    background: var(--success);
+    color: #000;
+}
+
+.nav-badge.warning {
+    background: var(--warning);
+    color: #000;
+}
+
+.nav-badge.info {
+    background: var(--info);
+    color: #000;
+}
+
+/* Enhanced Sub Navigation */
+.sub-nav {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-snap-type: x mandatory;
+}
+
+.sub-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.sub-nav-list {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: max-content;
+}
+
+.sub-nav-item {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.sub-nav-link {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: block;
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+}
+
+.sub-nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    color: var(--text-primary);
+}
+
+.sub-nav-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.sub-nav-link[aria-current="page"] {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.breadcrumb-list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.breadcrumb-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition);
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-link:hover {
+    color: var(--primary);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.breadcrumb-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.breadcrumb-current {
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+}
+
+.breadcrumb-separator {
+    color: var(--text-muted);
+    user-select: none;
+    font-size: 0.7rem;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--glass-border);
+    padding: 1rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 200;
+    overflow-y: auto;
+}
+
+.sidebar-nav.active {
+    transform: translateX(0);
+}
+
+.sidebar-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    min-height: var(--touch-target-min);
+}
+
+.sidebar-nav-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.sidebar-nav-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.sidebar-nav-link[aria-current="page"] {
+    background: rgba(102, 126, 234, 0.2);
+    color: var(--primary);
+}
+
+.sidebar-nav-icon {
+    font-size: 1.1rem;
+    width: 1.5rem;
+    text-align: center;
+}
+
+.sidebar-nav-label {
+    font-weight: 600;
+}
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.tab-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.tab-nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: max-content;
+}
+
+.tab-nav-item {
+    flex-shrink: 0;
+}
+
+.tab-nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    transition: var(--transition);
+    font-weight: 600;
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+}
+
+.tab-nav-link:hover {
+    color: var(--text-primary);
+    border-bottom-color: rgba(102, 126, 234, 0.5);
+}
+
+.tab-nav-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.tab-nav-link[aria-current="page"] {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* Pagination Navigation */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.pagination-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.25rem;
+}
+
+.pagination-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.pagination-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.pagination-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.pagination-link[aria-current="page"] {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.pagination-link:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sub-nav-link {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .nav-label {
+        font-size: 0.6rem;
+    }
+    
+    .breadcrumb {
+        font-size: 0.7rem;
+    }
+    
+    /* Hide middle breadcrumb items on mobile */
+    .breadcrumb-item:not(:last-child):not(:first-child) {
+        display: none;
+    }
+    
+    .sidebar-nav {
+        width: 100%;
+    }
+    
+    .tab-nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .pagination-link {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .enhanced-nav {
+        padding: 0.75rem 0.75rem calc(0.75rem + var(--mobile-safe-bottom)) 0.75rem;
+    }
+    
+    .nav-list {
+        height: 48px;
+    }
+    
+    .nav-icon {
+        font-size: 1.1rem;
+    }
+    
+    .nav-label {
+        font-size: 0.55rem;
+    }
+    
+    .sub-nav-link {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+    .nav-link,
+    .sub-nav-link,
+    .breadcrumb-link,
+    .sidebar-nav-link,
+    .tab-nav-link,
+    .pagination-link {
+        transition: none !important;
+    }
+    
+    .nav-link:hover,
+    .nav-link[aria-current="page"] {
+        transform: none !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .nav-link,
+    .sub-nav-link,
+    .breadcrumb-link,
+    .sidebar-nav-link,
+    .tab-nav-link,
+    .pagination-link {
+        border: 2px solid var(--glass-border);
+    }
+    
+    .nav-link[aria-current="page"],
+    .sub-nav-link[aria-current="page"],
+    .sidebar-nav-link[aria-current="page"],
+    .tab-nav-link[aria-current="page"],
+    .pagination-link[aria-current="page"] {
+        border-color: var(--primary);
+        border-width: 3px;
+    }
+}
+
+/* Focus Management */
+.nav-link:focus-visible,
+.sub-nav-link:focus-visible,
+.breadcrumb-link:focus-visible,
+.sidebar-nav-link:focus-visible,
+.tab-nav-link:focus-visible,
+.pagination-link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--border-radius);
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Navigation Overlay for Mobile */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Usage Examples:
+ * 
+ * Bottom Navigation:
+ * <nav class="enhanced-nav" aria-label="Main navigation">
+ *   <ul class="nav-list" role="menubar">
+ *     <li class="nav-item">
+ *       <a href="#" class="nav-link" role="menuitem" aria-current="page">
+ *         <span class="nav-icon">🏠</span>
+ *         <span class="nav-label">Home</span>
+ *         <span class="nav-badge">3</span>
+ *       </a>
+ *     </li>
+ *   </ul>
+ * </nav>
+ * 
+ * Sub Navigation:
+ * <nav class="sub-nav" aria-label="Section navigation">
+ *   <ul class="sub-nav-list" role="tablist">
+ *     <li class="sub-nav-item">
+ *       <a href="#" class="sub-nav-link" role="tab" aria-current="page">Overview</a>
+ *     </li>
+ *   </ul>
+ * </nav>
+ * 
+ * Breadcrumb:
+ * <nav class="breadcrumb" aria-label="Breadcrumb">
+ *   <ol class="breadcrumb-list">
+ *     <li><a href="#" class="breadcrumb-link">Home</a></li>
+ *     <li><span class="breadcrumb-separator">›</span></li>
+ *     <li><span class="breadcrumb-current" aria-current="page">Current</span></li>
+ *   </ol>
+ * </nav>
+ */

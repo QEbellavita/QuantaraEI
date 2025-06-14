@@ -1,0 +1,557 @@
+/* ====================================
+   CHARTS AND VISUALIZATIONS CSS
+   ====================================
+   Extracted from AI Platform Complete
+   Contains all chart, graph, and data visualization styles
+   ==================================== */
+
+/* Progress Rings */
+.progress-ring {
+    position: relative; 
+    width: 80px; 
+    height: 80px; 
+    margin: 0 auto;
+}
+
+.progress-ring svg {
+    width: 100%; 
+    height: 100%; 
+    transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+    fill: none; 
+    stroke-width: 4; 
+    stroke-linecap: round;
+}
+
+.progress-ring .bg { 
+    stroke: rgba(255, 255, 255, 0.1); 
+}
+
+.progress-ring .progress {
+    stroke: var(--primary); 
+    stroke-dasharray: 251; 
+    stroke-dashoffset: 251;
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.progress-text {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    color: var(--text-primary);
+}
+
+/* Screen Time Chart */
+.screen-time-chart {
+    margin-bottom: var(--md);
+}
+
+.chart-header {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: var(--sm);
+    font-size: 0.8rem; 
+    color: var(--text-muted);
+}
+
+.screen-bars {
+    display: flex; 
+    gap: 1px; 
+    height: 40px; 
+    background: rgba(255,255,255,0.05); 
+    border-radius: 6px; 
+    overflow: hidden;
+}
+
+.screen-bar {
+    flex: 1; 
+    min-width: 2px; 
+    background: var(--primary); 
+    opacity: 0.7; 
+    transition: all 0.3s ease;
+}
+
+.screen-bar.productive { 
+    background: var(--success); 
+    opacity: 1; 
+}
+
+.screen-bar.social { 
+    background: var(--warning); 
+    opacity: 0.8; 
+}
+
+.screen-bar.distraction { 
+    background: var(--error); 
+    opacity: 0.6; 
+}
+
+/* Energy Forecast Chart */
+.energy-forecast {
+    margin: var(--md) 0;
+}
+
+.forecast-chart {
+    display: flex; 
+    gap: 2px; 
+    height: 40px; 
+    margin: var(--sm) 0;
+    border-radius: 4px; 
+    overflow: hidden; 
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.forecast-bar {
+    flex: 1; 
+    min-width: 2px; 
+    transition: all 0.3s ease; 
+    background: var(--ai-productivity);
+    opacity: 0.7; 
+    border-radius: 1px;
+}
+
+.forecast-bar.peak { 
+    opacity: 1; 
+    background: var(--success); 
+}
+
+.forecast-bar.low { 
+    opacity: 0.4; 
+    background: var(--warning); 
+}
+
+/* Biometric Grid and Cards */
+.biometric-grid {
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: var(--md); 
+    margin: var(--lg) 0;
+}
+
+.biometric-card {
+    border: 1px solid; 
+    border-radius: var(--border-radius); 
+    padding: var(--md); 
+    text-align: center;
+}
+
+.biometric-card.heart { 
+    background: rgba(255, 71, 87, 0.1); 
+    border-color: rgba(255, 71, 87, 0.3); 
+}
+
+.biometric-card.oxygen { 
+    background: rgba(0, 212, 255, 0.1); 
+    border-color: rgba(0, 212, 255, 0.3); 
+}
+
+.biometric-card.stress { 
+    background: rgba(168, 85, 247, 0.1); 
+    border-color: rgba(168, 85, 247, 0.3); 
+}
+
+.biometric-card.hrv { 
+    background: rgba(16, 185, 129, 0.1); 
+    border-color: rgba(16, 185, 129, 0.3); 
+}
+
+.biometric-value {
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    margin-bottom: 4px;
+}
+
+.biometric-card.heart .biometric-value { 
+    color: #ff4757; 
+}
+
+.biometric-card.oxygen .biometric-value { 
+    color: #00d4ff; 
+}
+
+.biometric-card.stress .biometric-value { 
+    color: #a855f7; 
+}
+
+.biometric-card.hrv .biometric-value { 
+    color: #10b981; 
+}
+
+/* Biometric Display Components */
+.biometric-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.biometric-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.biometric-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Chart Container */
+.chart-container {
+    margin: var(--md) 0; 
+    padding: var(--md);
+    background: rgba(0, 0, 0, 0.2); 
+    border-radius: var(--border-radius);
+    height: 120px; 
+    position: relative; 
+    overflow: hidden;
+}
+
+.chart-canvas { 
+    width: 100%; 
+    height: 100%; 
+}
+
+/* Audio Visualizer */
+.audio-visualizer {
+    height: 60px; 
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius); 
+    margin: var(--md) 0;
+    position: relative; 
+    overflow: hidden;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 2px;
+}
+
+.audio-bar {
+    width: 3px; 
+    height: 15px; 
+    background: var(--secondary);
+    border-radius: 2px; 
+    transition: height 0.1s ease;
+}
+
+/* Sensor Data Display */
+.sensor-data {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--sm); 
+    margin: var(--md) 0;
+}
+
+.data-item {
+    text-align: center; 
+    padding: var(--sm);
+    background: rgba(255, 255, 255, 0.03); 
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-value {
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.data-label {
+    font-size: 0.7rem; 
+    color: var(--text-muted);
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+}
+
+/* Data Stream */
+.data-stream {
+    max-height: 100px; 
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3); 
+    border-radius: var(--border-radius);
+    padding: var(--sm); 
+    margin: var(--md) 0;
+    font-family: monospace; 
+    font-size: 0.7rem; 
+    line-height: 1.4;
+}
+
+.data-stream::-webkit-scrollbar { 
+    width: 3px; 
+}
+
+.data-stream::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+
+.data-stream::-webkit-scrollbar-thumb { 
+    background: var(--glass-border); 
+    border-radius: 2px; 
+}
+
+.log-entry {
+    margin-bottom: 3px; 
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-timestamp { 
+    color: var(--text-muted); 
+    font-size: 0.6rem; 
+}
+
+/* Emotion Grid and Items */
+.emotion-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.emotion-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.emotion-emoji {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.emotion-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.emotion-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.correlation-indicator {
+    font-size: 0.8rem;
+    color: var(--secondary);
+    margin-top: 4px;
+}
+
+/* Correlation Matrix */
+.correlation-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.correlation-cell {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.correlation-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.correlation-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Progress Bars */
+.progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 8px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 1s ease;
+    border-radius: 8px;
+}
+
+/* Allocation Bars */
+.allocation-bar {
+    height: 8px; 
+    background: rgba(255, 255, 255, 0.1); 
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.allocation-fill {
+    height: 100%; 
+    background: var(--ai-productivity); 
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+/* XP Bars */
+.xp-bar {
+    width: 100px; 
+    height: 6px; 
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px; 
+    overflow: hidden;
+}
+
+.xp-progress {
+    height: 100%; 
+    background: linear-gradient(90deg, var(--success), var(--secondary));
+    border-radius: 3px; 
+    transition: width 1s ease;
+}
+
+/* Video and Canvas for Facial Recognition */
+.video-container {
+    position: relative;
+    margin: 15px 0;
+    text-align: center;
+}
+
+video {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.canvas-overlay {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* Log Container */
+.log-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.log-entry {
+    margin-bottom: 5px;
+    padding: 2px 0;
+}
+
+.log-entry.success {
+    color: var(--success);
+}
+
+.log-entry.error {
+    color: var(--error);
+}
+
+.log-entry.info {
+    color: var(--info);
+}
+
+/* Status Indicators */
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.status-active {
+    background: var(--success);
+    animation: pulse 2s infinite;
+}
+
+.status-inactive {
+    background: var(--error);
+}
+
+.status-indicator.connected { 
+    background: var(--success); 
+}
+
+.status-indicator.connecting { 
+    background: var(--warning); 
+}
+
+/* Integration Metrics */
+.integration-metrics {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: var(--sm);
+    margin-bottom: var(--md); 
+    font-size: 0.75rem;
+}
+
+.metric-item {
+    text-align: center; 
+    padding: var(--sm);
+    background: rgba(255, 255, 255, 0.05); 
+    border-radius: var(--border-radius);
+}
+
+.metric-item .metric-label {
+    display: block; 
+    color: var(--text-muted); 
+    margin-bottom: 2px;
+}
+
+.metric-item .metric-value {
+    font-weight: 600; 
+    color: var(--text-primary);
+}
+
+/* Responsive Chart Adjustments */
+@media (max-width: 768px) {
+    .biometric-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .correlation-matrix { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    
+    .progress-ring {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .chart-container {
+        height: 100px;
+    }
+    
+    .audio-visualizer {
+        height: 40px;
+    }
+    
+    .sensor-data {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

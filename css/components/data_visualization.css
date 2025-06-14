@@ -1,0 +1,596 @@
+/* ====================================
+ * DATA VISUALIZATION STYLES
+ * Styles for charts, graphs, metrics displays, and data visualizations
+ * ==================================== */
+
+.visualization-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 16px 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.visualization-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.viz-title {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.viz-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.viz-control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.viz-control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.viz-control-btn.active {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    border-color: transparent;
+    color: white;
+}
+
+/* Chart Containers */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 16px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.chart-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Line Charts */
+.line-chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+}
+
+.grid-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.grid-line.horizontal {
+    width: 100%;
+    height: 1px;
+}
+
+.grid-line.vertical {
+    height: 100%;
+    width: 1px;
+}
+
+.chart-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.data-line {
+    fill: none;
+    stroke: #4facfe;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 4px rgba(79, 172, 254, 0.3));
+    animation: draw-line 2s ease;
+}
+
+@keyframes draw-line {
+    from {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+    }
+    to {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 0;
+    }
+}
+
+.data-point {
+    fill: #4facfe;
+    stroke: white;
+    stroke-width: 2px;
+    r: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.data-point:hover {
+    fill: #00f2fe;
+    r: 6px;
+    filter: drop-shadow(0 0 8px rgba(79, 172, 254, 0.6));
+}
+
+/* Bar Charts */
+.bar-chart {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    height: 100%;
+    padding: 20px 10px 10px;
+    gap: 4px;
+}
+
+.chart-bar {
+    background: linear-gradient(to top, #4facfe, #00f2fe);
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 4px;
+    cursor: pointer;
+    animation: grow-bar 1s ease;
+}
+
+@keyframes grow-bar {
+    from { height: 0; }
+    to { height: var(--bar-height); }
+}
+
+.chart-bar:hover {
+    background: linear-gradient(to top, #00f2fe, #4facfe);
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 12px rgba(79, 172, 254, 0.4));
+}
+
+.chart-bar::before {
+    content: attr(data-value);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    margin-bottom: 4px;
+}
+
+.chart-bar:hover::before {
+    opacity: 1;
+}
+
+/* Pie Charts */
+.pie-chart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.pie-segment {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.pie-segment:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3));
+}
+
+.pie-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Gauge Charts */
+.gauge-chart {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    margin: 0 auto 20px;
+}
+
+.gauge-arc {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 12px;
+    stroke-linecap: round;
+}
+
+.gauge-progress {
+    fill: none;
+    stroke: url(#gaugeGradient);
+    stroke-width: 12px;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.5s ease;
+}
+
+.gauge-needle {
+    transition: transform 0.5s ease;
+    transform-origin: bottom center;
+}
+
+.gauge-center {
+    fill: #4facfe;
+    stroke: white;
+    stroke-width: 2px;
+}
+
+.gauge-value {
+    text-align: center;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.gauge-label {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* Real-time Charts */
+.realtime-chart {
+    position: relative;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.realtime-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+.realtime-data {
+    position: absolute;
+    width: 2px;
+    background: linear-gradient(to top, transparent, #4facfe, transparent);
+    bottom: 0;
+    transition: height 0.2s ease;
+}
+
+/* Heat Maps */
+.heatmap-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 2px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: white;
+    font-weight: 600;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.heatmap-cell.low { background: rgba(59, 130, 246, 0.3); }
+.heatmap-cell.medium { background: rgba(245, 158, 11, 0.6); }
+.heatmap-cell.high { background: rgba(239, 68, 68, 0.8); }
+
+/* Sparklines */
+.sparkline-container {
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 4px;
+    margin: 8px 0;
+}
+
+.sparkline {
+    width: 100%;
+    height: 100%;
+}
+
+.sparkline-path {
+    fill: none;
+    stroke: #4facfe;
+    stroke-width: 2px;
+    opacity: 0.8;
+}
+
+.sparkline-area {
+    fill: url(#sparklineGradient);
+    opacity: 0.3;
+}
+
+/* Metric Cards */
+.metric-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--metric-color), var(--metric-color));
+    opacity: 0.8;
+}
+
+.metric-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.metric-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-change {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.metric-change.positive {
+    color: #4ade80;
+    --metric-color: #4ade80;
+}
+
+.metric-change.negative {
+    color: #f87171;
+    --metric-color: #f87171;
+}
+
+.metric-change.neutral {
+    color: #fbbf24;
+    --metric-color: #fbbf24;
+}
+
+/* Chart Tooltips */
+.chart-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chart-tooltip.visible {
+    opacity: 1;
+}
+
+.tooltip-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.tooltip-value {
+    color: #4facfe;
+    font-weight: 600;
+}
+
+/* Data Tables */
+.data-table {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 16px 0;
+}
+
+.data-table-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 16px;
+    font-weight: 600;
+    color: white;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-table-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.3s ease;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+}
+
+.data-table-row:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.data-table-cell {
+    padding: 8px 0;
+}
+
+/* Export Controls */
+.export-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.export-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.export-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 200px;
+    }
+    
+    .pie-chart {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .gauge-chart {
+        width: 150px;
+        height: 90px;
+    }
+    
+    .heatmap-container {
+        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+    }
+    
+    .metric-value {
+        font-size: 1.5rem;
+    }
+    
+    .viz-controls {
+        flex-wrap: wrap;
+    }
+    
+    .export-controls {
+        flex-wrap: wrap;
+    }
+}
+
+/* SVG Gradients */
+.chart-gradients {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Animation delays for staggered effects */
+.data-point:nth-child(1) { animation-delay: 0.1s; }
+.data-point:nth-child(2) { animation-delay: 0.2s; }
+.data-point:nth-child(3) { animation-delay: 0.3s; }
+.data-point:nth-child(4) { animation-delay: 0.4s; }
+.data-point:nth-child(5) { animation-delay: 0.5s; }
+
+.chart-bar:nth-child(1) { animation-delay: 0.1s; }
+.chart-bar:nth-child(2) { animation-delay: 0.2s; }
+.chart-bar:nth-child(3) { animation-delay: 0.3s; }
+.chart-bar:nth-child(4) { animation-delay: 0.4s; }
+.chart-bar:nth-child(5) { animation-delay: 0.5s; }

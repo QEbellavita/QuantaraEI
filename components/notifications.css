@@ -1,0 +1,384 @@
+/* Notifications CSS */
+
+:root {
+    /* Color variables */
+    --success: #00ff88;
+    --warning: #ffaa00;
+    --error: #ff4757;
+    --info: #00d4ff;
+    --accent: #a855f7;
+    
+    /* Mobile safe areas */
+    --mobile-safe-top: env(safe-area-inset-top);
+    --mobile-safe-bottom: env(safe-area-inset-bottom);
+    
+    /* Transitions */
+    --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Main Notification Container */
+.notification {
+    position: fixed;
+    top: calc(20px + var(--mobile-safe-top));
+    left: 16px;
+    right: 16px;
+    background: rgba(10, 10, 20, 0.95);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    color: white;
+    z-index: 1100;
+    font-weight: 600;
+    transform: translateY(-100px);
+    transition: transform 0.4s ease;
+    max-width: 430px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Show state */
+.notification.show {
+    transform: translateY(0);
+}
+
+/* Notification Types */
+.notification.success {
+    border-left: 4px solid var(--success);
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.notification.info {
+    border-left: 4px solid var(--info);
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.notification.warning {
+    border-left: 4px solid var(--warning);
+    background: rgba(255, 170, 0, 0.1);
+}
+
+.notification.error {
+    border-left: 4px solid var(--error);
+    background: rgba(255, 71, 87, 0.1);
+}
+
+.notification.quantum {
+    border-left: 4px solid var(--accent);
+    background: rgba(139, 92, 246, 0.1);
+    border-color: var(--accent);
+}
+
+/* Enhanced Notification Variants */
+.notification.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.notification.solid {
+    backdrop-filter: none;
+}
+
+.notification.solid.success {
+    background: var(--success);
+    color: #000;
+    border-left: none;
+}
+
+.notification.solid.error {
+    background: var(--error);
+    color: #fff;
+    border-left: none;
+}
+
+.notification.solid.warning {
+    background: var(--warning);
+    color: #000;
+    border-left: none;
+}
+
+.notification.solid.info {
+    background: var(--info);
+    color: #000;
+    border-left: none;
+}
+
+/* Notification with Icon */
+.notification.with-icon {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.notification-message {
+    font-weight: 500;
+    opacity: 0.9;
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+/* Action Buttons in Notifications */
+.notification-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.notification-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.notification-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.notification-btn.primary {
+    background: var(--info);
+    border-color: var(--info);
+    color: #000;
+}
+
+.notification-btn.primary:hover {
+    background: #00b8e6;
+}
+
+/* Close Button */
+.notification-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.notification-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Progress Bar for Timed Notifications */
+.notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 0 16px 16px;
+    overflow: hidden;
+}
+
+.notification-progress-bar {
+    height: 100%;
+    background: var(--info);
+    transition: width linear;
+}
+
+.notification.success .notification-progress-bar {
+    background: var(--success);
+}
+
+.notification.warning .notification-progress-bar {
+    background: var(--warning);
+}
+
+.notification.error .notification-progress-bar {
+    background: var(--error);
+}
+
+.notification.quantum .notification-progress-bar {
+    background: var(--accent);
+}
+
+/* Multiple Notifications Stack */
+.notification-container {
+    position: fixed;
+    top: calc(20px + var(--mobile-safe-top));
+    left: 16px;
+    right: 16px;
+    z-index: 1100;
+    pointer-events: none;
+    max-width: 430px;
+    margin: 0 auto;
+}
+
+.notification-container .notification {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-bottom: 12px;
+    pointer-events: auto;
+}
+
+.notification-container .notification:last-child {
+    margin-bottom: 0;
+}
+
+/* Animation Variants */
+.notification.slide-from-top {
+    transform: translateY(-100px);
+}
+
+.notification.slide-from-top.show {
+    transform: translateY(0);
+}
+
+.notification.slide-from-right {
+    transform: translateX(100%);
+}
+
+.notification.slide-from-right.show {
+    transform: translateX(0);
+}
+
+.notification.fade-in {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.notification.fade-in.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.notification.bounce-in {
+    transform: translateY(-100px) scale(0.3);
+}
+
+.notification.bounce-in.show {
+    transform: translateY(0) scale(1);
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .notification {
+        left: 12px;
+        right: 12px;
+        padding: 14px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .notification-actions {
+        flex-direction: column;
+    }
+    
+    .notification-btn {
+        justify-content: center;
+    }
+}
+
+/* Dark Theme Variants */
+.notification.dark {
+    background: rgba(0, 0, 0, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light Theme Variants */
+.notification.light {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.notification.light.success {
+    border-left-color: #059669;
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.notification.light.error {
+    border-left-color: #dc2626;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Accessibility */
+.notification:focus-visible {
+    outline: 2px solid var(--info);
+    outline-offset: 2px;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .notification {
+        transition: opacity 0.2s ease;
+    }
+    
+    .notification.show {
+        transform: none;
+    }
+    
+    .notification.bounce-in.show {
+        transition: opacity 0.2s ease;
+        transform: none;
+    }
+}
+
+/* Usage Examples:
+ * 
+ * Basic notification:
+ * <div class="notification success show">
+ *   ✅ Operation completed successfully!
+ * </div>
+ * 
+ * With icon and actions:
+ * <div class="notification info with-icon show">
+ *   <div class="notification-icon">📱</div>
+ *   <div class="notification-content">
+ *     <div class="notification-title">New Update Available</div>
+ *     <div class="notification-message">Version 2.0 is ready to install</div>
+ *     <div class="notification-actions">
+ *       <button class="notification-btn primary">Update Now</button>
+ *       <button class="notification-btn">Later</button>
+ *     </div>
+ *   </div>
+ *   <button class="notification-close">×</button>
+ * </div>
+ * 
+ * With progress bar:
+ * <div class="notification warning show">
+ *   Uploading file...
+ *   <div class="notification-progress">
+ *     <div class="notification-progress-bar" style="width: 60%;"></div>
+ *   </div>
+ * </div>
+ */

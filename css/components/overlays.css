@@ -1,0 +1,626 @@
+/* Overlays CSS */
+
+:root {
+    /* Color variables */
+    --primary: #667eea;
+    --accent: #a855f7;
+    --success: #00ff88;
+    --warning: #ffaa00;
+    --error: #ff4757;
+    --info: #00d4ff;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    
+    /* Gradients */
+    --ai-primary: linear-gradient(135deg, #667eea 0%, #a855f7 50%, #00ffd4 100%);
+    --ai-learning: linear-gradient(135deg, #a855f7 0%, #06b6d4 50%, #00ffd4 100%);
+    --ai-health: linear-gradient(135deg, #ec4899 0%, #f59e0b 50%, #10b981 100%);
+    --quantum-primary: linear-gradient(135deg, #8b5cf6 0%, #00ffd4 25%, #a855f7 50%, #667eea 75%, #ec4899 100%);
+    
+    /* Surfaces */
+    --surface: rgba(15, 18, 45, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --holographic: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    
+    /* Spacing */
+    --sm: 8px;
+    --md: 16px;
+    --lg: 24px;
+    --xl: 32px;
+    
+    /* Border radius */
+    --border-radius: 14px;
+    --border-radius-lg: 18px;
+    --border-radius-2xl: 20px;
+    
+    /* Transitions */
+    --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    
+    /* Mobile safe areas */
+    --mobile-safe-top: env(safe-area-inset-top);
+    --mobile-safe-bottom: env(safe-area-inset-bottom);
+    
+    /* Focus rings */
+    --focus-ring: 0 0 0 3px rgba(102, 126, 234, 0.6);
+    --focus-ring-quantum: 0 0 0 3px rgba(139, 92, 246, 0.6);
+    
+    /* Touch targets */
+    --touch-target-min: 44px;
+}
+
+/* Base Overlay Styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: calc(var(--mobile-safe-top) + 20px) 20px calc(var(--mobile-safe-bottom) + 20px) 20px;
+    overflow-y: auto;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Overlay Content Container */
+.overlay-content {
+    max-width: 500px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+}
+
+/* Overlay Header */
+.overlay-header {
+    text-align: center;
+    margin-bottom: var(--xl);
+    position: relative;
+}
+
+.overlay-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-learning);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.overlay-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Close Button */
+.overlay-close {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    min-height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+}
+
+.overlay-close:hover,
+.overlay-close:focus-visible {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.overlay-close:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+/* Labs Overlay Specific Styles */
+.labs-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: calc(var(--mobile-safe-top) + 20px) 20px calc(var(--mobile-safe-bottom) + 20px) 20px;
+}
+
+.labs-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.labs-content {
+    max-width: 500px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+}
+
+.labs-header {
+    text-align: center;
+    margin-bottom: var(--xl);
+    position: relative;
+}
+
+.labs-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-learning);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.labs-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.labs-close {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    min-height: var(--touch-target-min);
+}
+
+.labs-close:hover,
+.labs-close:focus-visible {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* Labs Grid */
+.labs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--lg);
+    margin-bottom: var(--xl);
+    flex: 1;
+    align-content: start;
+}
+
+/* Lab Cards */
+.lab-card {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
+    color: inherit;
+    min-height: var(--touch-target-min);
+}
+
+.lab-card:hover,
+.lab-card:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.3);
+    border-color: var(--primary);
+}
+
+.lab-card:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.lab-card.active {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.lab-card.quantum {
+    border-color: var(--accent);
+    background: rgba(168, 85, 247, 0.1);
+    animation: quantumGlow 3s ease-in-out infinite;
+}
+
+.lab-card.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--success);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.lab-card.quantum::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--quantum-primary);
+    border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.lab-icon {
+    font-size: 2.2rem;
+    margin-bottom: var(--sm);
+}
+
+.lab-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.lab-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: var(--sm);
+}
+
+.lab-status {
+    position: absolute;
+    top: var(--sm);
+    right: var(--sm);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.lab-card.active .lab-status {
+    background: var(--success);
+    color: white;
+}
+
+.lab-card.quantum .lab-status {
+    background: var(--quantum-primary);
+    color: white;
+}
+
+/* Labs Stats */
+.labs-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+    background: var(--surface);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    border: 1px solid var(--glass-border);
+}
+
+.lab-stat {
+    text-align: center;
+}
+
+.lab-stat .stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.lab-stat .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Sensors Overlay Specific Styles */
+.sensors-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(25px);
+    z-index: 400;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: calc(var(--mobile-safe-top) + 20px) 20px calc(var(--mobile-safe-bottom) + 20px) 20px;
+    overflow-y: auto;
+}
+
+.sensors-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sensors-content {
+    max-width: 500px;
+    margin: 0 auto;
+    color: var(--text-primary);
+}
+
+.sensors-header {
+    text-align: center;
+    margin-bottom: var(--xl);
+    position: relative;
+}
+
+.sensors-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-health);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sensors-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.sensors-close {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    min-height: var(--touch-target-min);
+}
+
+.sensors-close:hover,
+.sensors-close:focus-visible {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* Animations */
+@keyframes quantumGlow {
+    0%, 100% {
+        border-color: rgba(168, 85, 247, 0.3);
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+    }
+    50% {
+        border-color: rgba(0, 255, 212, 0.6);
+        box-shadow: 0 0 20px rgba(0, 255, 212, 0.3);
+    }
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .labs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .labs-content {
+        padding: 0;
+    }
+    
+    .lab-card {
+        height: 120px;
+    }
+    
+    .labs-title,
+    .sensors-title {
+        font-size: 1.5rem;
+    }
+    
+    .overlay-title {
+        font-size: 1.5rem;
+    }
+    
+    .labs-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .overlay {
+        padding: calc(var(--mobile-safe-top) + 10px) 10px calc(var(--mobile-safe-bottom) + 10px) 10px;
+    }
+    
+    .lab-card {
+        height: 100px;
+        padding: var(--md);
+    }
+    
+    .lab-icon {
+        font-size: 1.8rem;
+    }
+    
+    .lab-title {
+        font-size: 0.85rem;
+    }
+    
+    .lab-desc {
+        font-size: 0.75rem;
+    }
+}
+
+/* Accessibility Improvements */
+.overlay:focus-visible {
+    outline: none;
+}
+
+.overlay[role="dialog"] {
+    aria-modal: true;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .overlay,
+    .lab-card,
+    .overlay-close {
+        transition: opacity 0.2s ease;
+    }
+    
+    .lab-card:hover,
+    .lab-card:focus-visible {
+        transform: none;
+    }
+    
+    .quantumGlow {
+        animation: none;
+    }
+}
+
+/* Dark/Light Theme Variants */
+.overlay.light {
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+}
+
+.overlay.light .overlay-close {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.overlay.light .overlay-close:hover {
+    color: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Overlay Variants */
+.overlay.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(40px);
+}
+
+.overlay.solid {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.98);
+}
+
+/* Usage Examples:
+ * 
+ * Basic overlay:
+ * <div class="overlay active" role="dialog" aria-modal="true">
+ *   <div class="overlay-content">
+ *     <div class="overlay-header">
+ *       <h2 class="overlay-title">Overlay Title</h2>
+ *       <button class="overlay-close">×</button>
+ *     </div>
+ *     <!-- Content here -->
+ *   </div>
+ * </div>
+ * 
+ * Labs overlay:
+ * <div class="labs-overlay active">
+ *   <div class="labs-content">
+ *     <div class="labs-header">
+ *       <h2 class="labs-title">⚛️ Quantum AI Labs</h2>
+ *       <div class="labs-subtitle">Advanced Analysis Tools</div>
+ *       <button class="labs-close">×</button>
+ *     </div>
+ *     <div class="labs-grid">
+ *       <!-- Lab cards here -->
+ *     </div>
+ *   </div>
+ * </div>
+ */

@@ -1,0 +1,264 @@
+/* Biometric Display Styles */
+
+/* Biometric Grid */
+.biometric-grid {
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: var(--md); 
+    margin: var(--lg) 0;
+}
+
+.biometric-card {
+    border: 1px solid; 
+    border-radius: var(--border-radius); 
+    padding: var(--md); 
+    text-align: center;
+}
+
+.biometric-card.heart { 
+    background: rgba(255, 71, 87, 0.1); 
+    border-color: rgba(255, 71, 87, 0.3); 
+}
+
+.biometric-card.oxygen { 
+    background: rgba(0, 212, 255, 0.1); 
+    border-color: rgba(0, 212, 255, 0.3); 
+}
+
+.biometric-card.stress { 
+    background: rgba(168, 85, 247, 0.1); 
+    border-color: rgba(168, 85, 247, 0.3); 
+}
+
+.biometric-card.hrv { 
+    background: rgba(16, 185, 129, 0.1); 
+    border-color: rgba(16, 185, 129, 0.3); 
+}
+
+.biometric-value {
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    margin-bottom: 4px;
+}
+
+.biometric-card.heart .biometric-value { 
+    color: #ff4757; 
+}
+
+.biometric-card.oxygen .biometric-value { 
+    color: #00d4ff; 
+}
+
+.biometric-card.stress .biometric-value { 
+    color: #a855f7; 
+}
+
+.biometric-card.hrv .biometric-value { 
+    color: #10b981; 
+}
+
+/* Biometric Display */
+.biometric-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.biometric-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.biometric-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Real-time Biometric Data */
+.sensor-data {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--sm); 
+    margin: var(--md) 0;
+}
+
+.data-item {
+    text-align: center; 
+    padding: var(--sm);
+    background: rgba(255, 255, 255, 0.03); 
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-value {
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.data-label {
+    font-size: 0.7rem; 
+    color: var(--text-muted);
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+}
+
+/* Sensor Status Indicators */
+.status-indicator {
+    width: 8px; 
+    height: 8px; 
+    border-radius: 50%; 
+    background: var(--error);
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.connected { 
+    background: var(--success); 
+}
+
+.status-indicator.connecting { 
+    background: var(--warning); 
+}
+
+.status-active {
+    background: var(--success);
+    animation: pulse 2s infinite;
+}
+
+.status-inactive {
+    background: var(--error);
+}
+
+/* Progress Indicators */
+.progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    height: 8px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transition: width 1s ease;
+    border-radius: 8px;
+}
+
+/* Chart Containers */
+.chart-container {
+    margin: var(--md) 0; 
+    padding: var(--md);
+    background: rgba(0, 0, 0, 0.2); 
+    border-radius: var(--border-radius);
+    height: 120px; 
+    position: relative; 
+    overflow: hidden;
+}
+
+.chart-canvas { 
+    width: 100%; 
+    height: 100%; 
+}
+
+/* Data Streams */
+.data-stream {
+    max-height: 100px; 
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3); 
+    border-radius: var(--border-radius);
+    padding: var(--sm); 
+    margin: var(--md) 0;
+    font-family: monospace; 
+    font-size: 0.7rem; 
+    line-height: 1.4;
+}
+
+.data-stream::-webkit-scrollbar { 
+    width: 3px; 
+}
+
+.data-stream::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+
+.data-stream::-webkit-scrollbar-thumb { 
+    background: var(--glass-border); 
+    border-radius: 2px; 
+}
+
+.log-entry {
+    margin-bottom: 3px; 
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-entry.success {
+    color: var(--success);
+}
+
+.log-entry.error {
+    color: var(--error);
+}
+
+.log-entry.info {
+    color: var(--info);
+}
+
+.log-timestamp { 
+    color: var(--text-muted); 
+    font-size: 0.6rem; 
+}
+
+/* Permission Notices */
+.permission-notice, .sensor-info {
+    background: rgba(245, 158, 11, 0.1); 
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: var(--border-radius); 
+    padding: var(--sm);
+    margin: var(--md) 0; 
+    font-size: 0.8rem; 
+    color: var(--warning);
+}
+
+.sensor-info {
+    background: rgba(6, 182, 212, 0.1); 
+    border-color: rgba(6, 182, 212, 0.3);
+    color: var(--secondary);
+}
+
+/* Advanced Biometric Data Grid */
+.metric-item {
+    text-align: center; 
+    padding: var(--sm);
+    background: rgba(255, 255, 255, 0.05); 
+    border-radius: var(--border-radius);
+}
+
+.metric-item .metric-label {
+    display: block; 
+    color: var(--text-muted); 
+    margin-bottom: 2px;
+}
+
+.metric-item .metric-value {
+    font-weight: 600; 
+    color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .biometric-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .sensor-data {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

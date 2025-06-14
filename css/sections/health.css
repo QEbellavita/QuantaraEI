@@ -1,0 +1,1097 @@
+/* Health & Wellness CSS */
+
+:root {
+    /* Health specific gradients */
+    --ai-health: linear-gradient(135deg, #ec4899 0%, #f59e0b 50%, #10b981 100%);
+    --health-gradient: linear-gradient(135deg, #10b981 0%, #00ffd4 50%, #667eea 100%);
+    --biometric-gradient: linear-gradient(135deg, #ec4899 0%, #f59e0b 50%, #10b981 100%);
+    --wellness-gradient: linear-gradient(135deg, #06b6d4 0%, #10b981 50%, #00ffd4 100%);
+    --vitals-gradient: linear-gradient(135deg, #ff4757 0%, #f59e0b 50%, #10b981 100%);
+    
+    /* Medical/health colors */
+    --heart-rate-color: #ff4757;
+    --oxygen-color: #00d4ff;
+    --stress-color: #a855f7;
+    --hrv-color: #10b981;
+    --sleep-color: #6366f1;
+    --nutrition-color: #f59e0b;
+    --fitness-color: #ec4899;
+    
+    /* Apple Health colors */
+    --apple-blue: #007AFF;
+    --fitbit-teal: #00B0B9;
+    --garmin-blue: #007CC3;
+    
+    /* Core colors */
+    --primary: #667eea;
+    --secondary: #00ffd4;
+    --accent: #a855f7;
+    --success: #00ff88;
+    --warning: #ffaa00;
+    --error: #ff4757;
+    --info: #00d4ff;
+    
+    /* Text colors */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    
+    /* Surfaces */
+    --surface: rgba(15, 18, 45, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --holographic: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    
+    /* Spacing */
+    --sm: 8px;
+    --md: 16px;
+    --lg: 24px;
+    --xl: 32px;
+    
+    /* Border radius */
+    --border-radius: 14px;
+    --border-radius-lg: 18px;
+    
+    /* Transitions */
+    --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Health Dashboard Container */
+.health-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-lg);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.health-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--ai-health);
+    background-size: 200% 200%;
+    animation: healthShimmer 3s ease-in-out infinite;
+}
+
+@keyframes healthShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Health Overview */
+.health-overview {
+    display: flex;
+    flex-direction: column;
+    gap: var(--lg);
+}
+
+.health-score-display {
+    text-align: center;
+    padding: var(--xl) var(--lg);
+    background: var(--surface);
+    border-radius: var(--border-radius);
+    margin: var(--lg) 0;
+    border: 1px solid var(--glass-border);
+    position: relative;
+}
+
+.health-score-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--health-gradient);
+}
+
+.health-score-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    background: var(--ai-health);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.health-score-value {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--success);
+    margin-bottom: var(--sm);
+}
+
+.health-score-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Biometric Grid */
+.biometric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.biometric-card {
+    border: 1px solid;
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    text-align: center;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.biometric-card:hover,
+.biometric-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.biometric-card:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+}
+
+.biometric-card.heart {
+    background: rgba(255, 71, 87, 0.1);
+    border-color: rgba(255, 71, 87, 0.3);
+}
+
+.biometric-card.oxygen {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: rgba(0, 212, 255, 0.3);
+}
+
+.biometric-card.stress {
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.biometric-card.hrv {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.biometric-card.sleep {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.biometric-card.nutrition {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.biometric-card.fitness {
+    background: rgba(236, 72, 153, 0.1);
+    border-color: rgba(236, 72, 153, 0.3);
+}
+
+.biometric-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--sm);
+}
+
+.biometric-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.biometric-card.heart .biometric-value {
+    color: var(--heart-rate-color);
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.02); }
+}
+
+.biometric-card.oxygen .biometric-value {
+    color: var(--oxygen-color);
+}
+
+.biometric-card.stress .biometric-value {
+    color: var(--stress-color);
+}
+
+.biometric-card.hrv .biometric-value {
+    color: var(--hrv-color);
+}
+
+.biometric-card.sleep .biometric-value {
+    color: var(--sleep-color);
+}
+
+.biometric-card.nutrition .biometric-value {
+    color: var(--nutrition-color);
+}
+
+.biometric-card.fitness .biometric-value {
+    color: var(--fitness-color);
+}
+
+.biometric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.biometric-status {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* Real-time Biometric Display */
+.realtime-biometric-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.current-emotional-state {
+    text-align: center;
+    padding: var(--lg);
+    background: var(--surface);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--lg);
+    border: 1px solid var(--glass-border);
+}
+
+.emotional-state-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: var(--sm);
+    color: var(--success);
+}
+
+.emotional-confidence {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: var(--sm);
+}
+
+.emotional-recommendations {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: var(--sm);
+}
+
+/* Advanced Biometric Data */
+.advanced-biometrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sm);
+    margin: var(--md) 0;
+}
+
+.advanced-metric {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--sm);
+    text-align: center;
+    border: 1px solid var(--glass-border);
+}
+
+.advanced-metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.advanced-metric-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.advanced-metric.breathing .advanced-metric-value {
+    color: var(--info);
+    animation: breathingPulse 4s ease-in-out infinite;
+}
+
+@keyframes breathingPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.advanced-metric.tension .advanced-metric-value {
+    color: var(--success);
+}
+
+.advanced-metric.conductance .advanced-metric-value {
+    color: var(--warning);
+}
+
+/* Health Insights */
+.health-insight {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    margin: var(--md) 0;
+    position: relative;
+}
+
+.health-insight::before {
+    content: '🍎';
+    position: absolute;
+    top: var(--sm);
+    right: var(--sm);
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.health-insight-title {
+    font-weight: 700;
+    margin-bottom: var(--sm);
+    color: var(--success);
+    font-size: 0.85rem;
+}
+
+.health-insight-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Correlations Display */
+.health-correlations {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    margin: var(--md) 0;
+}
+
+.correlations-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: var(--sm);
+    color: var(--secondary);
+}
+
+.correlations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sm);
+}
+
+.correlation-item {
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.correlation-label {
+    color: var(--text-muted);
+}
+
+.correlation-value {
+    font-weight: 600;
+}
+
+.correlation-value.high {
+    color: var(--success);
+}
+
+.correlation-value.medium {
+    color: var(--warning);
+}
+
+.correlation-value.low {
+    color: var(--error);
+}
+
+/* Sleep Analysis */
+.sleep-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.sleep-quality-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--lg) auto;
+}
+
+.sleep-quality-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.sleep-quality-ring circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.sleep-quality-ring .bg {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+.sleep-quality-ring .progress {
+    stroke: var(--sleep-color);
+    stroke-dasharray: 377;
+    stroke-dashoffset: 75;
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.sleep-quality-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.sleep-quality-percentage {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--sleep-color);
+}
+
+.sleep-quality-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.sleep-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+    margin-top: var(--lg);
+}
+
+.sleep-metric {
+    text-align: center;
+    padding: var(--md);
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.sleep-metric-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--sleep-color);
+    margin-bottom: 4px;
+}
+
+.sleep-metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Nutrition Tracking */
+.nutrition-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.nutrition-score {
+    text-align: center;
+    padding: var(--lg);
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--lg);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.nutrition-score-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--nutrition-color);
+    margin-bottom: var(--sm);
+}
+
+.nutrition-score-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.nutrition-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--md);
+}
+
+.macro-item {
+    text-align: center;
+    padding: var(--md);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--glass-border);
+}
+
+.macro-name {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.macro-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.macro-percentage {
+    font-size: 0.75rem;
+    color: var(--nutrition-color);
+    font-weight: 600;
+}
+
+.macro-item.protein .macro-value {
+    color: var(--error);
+}
+
+.macro-item.carbs .macro-value {
+    color: var(--warning);
+}
+
+.macro-item.fats .macro-value {
+    color: var(--success);
+}
+
+/* Fitness & Activity */
+.fitness-container {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.activity-rings {
+    display: flex;
+    justify-content: space-around;
+    margin: var(--lg) 0;
+}
+
+.activity-ring {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.activity-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.activity-ring circle {
+    fill: none;
+    stroke-width: 6;
+    stroke-linecap: round;
+}
+
+.activity-ring .bg {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+.activity-ring.move .progress {
+    stroke: var(--error);
+}
+
+.activity-ring.exercise .progress {
+    stroke: var(--success);
+}
+
+.activity-ring.stand .progress {
+    stroke: var(--info);
+}
+
+.activity-ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.activity-ring-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.activity-ring-label {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.fitness-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sm);
+    margin-top: var(--lg);
+}
+
+.fitness-stat {
+    text-align: center;
+    padding: var(--sm);
+    background: rgba(236, 72, 153, 0.1);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.fitness-stat-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fitness-color);
+    margin-bottom: 2px;
+}
+
+.fitness-stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Health Monitoring Controls */
+.health-controls {
+    display: flex;
+    gap: var(--sm);
+    justify-content: center;
+    margin: var(--lg) 0;
+    flex-wrap: wrap;
+}
+
+.health-btn {
+    background: var(--health-gradient);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: var(--md) var(--lg);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    min-height: 44px;
+}
+
+.health-btn:hover,
+.health-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.health-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.6);
+}
+
+.health-btn.vitals {
+    background: var(--vitals-gradient);
+}
+
+.health-btn.wellness {
+    background: var(--wellness-gradient);
+}
+
+.health-btn.biometric {
+    background: var(--biometric-gradient);
+}
+
+.health-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Health Alerts */
+.health-alert {
+    background: var(--surface);
+    border-left: 4px solid;
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    margin: var(--md) 0;
+    position: relative;
+}
+
+.health-alert.warning {
+    border-left-color: var(--warning);
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.health-alert.error {
+    border-left-color: var(--error);
+    background: rgba(255, 71, 87, 0.1);
+}
+
+.health-alert.success {
+    border-left-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.health-alert.info {
+    border-left-color: var(--info);
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.health-alert-title {
+    font-weight: 600;
+    margin-bottom: var(--sm);
+    font-size: 0.9rem;
+}
+
+.health-alert.warning .health-alert-title {
+    color: var(--warning);
+}
+
+.health-alert.error .health-alert-title {
+    color: var(--error);
+}
+
+.health-alert.success .health-alert-title {
+    color: var(--success);
+}
+
+.health-alert.info .health-alert-title {
+    color: var(--info);
+}
+
+.health-alert-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Wearable Integration */
+.wearable-integration {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.wearable-devices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--md);
+    margin: var(--lg) 0;
+}
+
+.wearable-device {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    padding: var(--md);
+    text-align: center;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.wearable-device:hover,
+.wearable-device:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.wearable-device:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+}
+
+.wearable-device.apple-watch {
+    border-color: var(--apple-blue);
+    background: rgba(0, 122, 255, 0.1);
+}
+
+.wearable-device.fitbit {
+    border-color: var(--fitbit-teal);
+    background: rgba(0, 176, 185, 0.1);
+}
+
+.wearable-device.garmin {
+    border-color: var(--garmin-blue);
+    background: rgba(0, 124, 195, 0.1);
+}
+
+.wearable-device.connected {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.wearable-icon {
+    font-size: 2rem;
+    margin-bottom: var(--sm);
+}
+
+.wearable-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.wearable-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.wearable-status.connected {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+}
+
+.wearable-status.disconnected {
+    background: rgba(255, 71, 87, 0.2);
+    color: var(--error);
+}
+
+/* Health Trends */
+.health-trends {
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--lg);
+    margin-bottom: var(--lg);
+}
+
+.trend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--md) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trend-item:last-child {
+    border-bottom: none;
+}
+
+.trend-info {
+    display: flex;
+    align-items: center;
+    gap: var(--md);
+}
+
+.trend-icon {
+    font-size: 1.2rem;
+    width: 32px;
+    text-align: center;
+}
+
+.trend-details {
+    flex: 1;
+}
+
+.trend-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.trend-description {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.trend-change {
+    display: flex;
+    align-items: center;
+    gap: var(--sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.trend-change.positive {
+    color: var(--success);
+}
+
+.trend-change.negative {
+    color: var(--error);
+}
+
+.trend-change.neutral {
+    color: var(--text-muted);
+}
+
+.trend-arrow {
+    font-size: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .biometric-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .advanced-biometrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .sleep-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .nutrition-breakdown {
+        grid-template-columns: 1fr;
+    }
+    
+    .activity-rings {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--md);
+    }
+    
+    .fitness-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .health-controls {
+        flex-direction: column;
+    }
+    
+    .health-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .wearable-devices {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .advanced-biometrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .correlations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sleep-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .fitness-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .health-score-value {
+        font-size: 2.5rem;
+    }
+    
+    .nutrition-score-value {
+        font-size: 2rem;
+    }
+    
+    .biometric-value {
+        font-size: 1.5rem;
+    }
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+    .biometric-card.heart .biometric-value,
+    .advanced-metric.breathing .advanced-metric-value {
+        animation: none !important;
+    }
+    
+    .biometric-card:hover,
+    .health-btn:hover,
+    .wearable-device:hover {
+        transform: none !important;
+    }
+    
+    .sleep-quality-ring .progress {
+        transition: none !important;
+    }
+}
+
+@media (prefers-contrast: high) {
+    .biometric-card,
+    .health-alert,
+    .wearable-device {
+        border-width: 2px;
+    }
+    
+    .biometric-card:hover,
+    .wearable-device.connected {
+        border-width: 3px;
+    }
+}
+
+/* Focus Management */
+.biometric-card:focus-visible,
+.health-btn:focus-visible,
+.wearable-device:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.6);
+    border-radius: var(--border-radius);
+}
+
+/* Usage Examples:
+ * 
+ * Health Score Display:
+ * <div class="health-score-display">
+ *   <div class="health-score-title">Health Score</div>
+ *   <div class="health-score-value">92%</div>
+ *   <div class="health-score-description">Excellent overall health</div>
+ * </div>
+ * 
+ * Biometric Card:
+ * <div class="biometric-card heart">
+ *   <div class="biometric-icon">❤️</div>
+ *   <div class="biometric-value">72 BPM</div>
+ *   <div class="biometric-label">Heart Rate</div>
+ *   <div class="biometric-status">Normal Range</div>
+ * </div>
+ * 
+ * Health Insight:
+ * <div class="health-insight">
+ *   <div class="health-insight-title">🍎 AI Nutrition Insight</div>
+ *   <div class="health-insight-description">
+ *     Your energy spikes 47 min after protein-rich meals.
+ *   </div>
+ * </div>
+ * 
+ * Health Controls:
+ * <div class="health-controls">
+ *   <button class="health-btn vitals">Start Monitoring</button>
+ *   <button class="health-btn wellness">Wellness Check</button>
+ *   <button class="health-btn biometric">Sync Devices</button>
+ * </div>
+ */
